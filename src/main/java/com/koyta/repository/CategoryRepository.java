@@ -1,6 +1,7 @@
 package com.koyta.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
@@ -13,5 +14,11 @@ import com.koyta.entity.Category;
 public interface CategoryRepository extends JpaRepository<Category, Integer> {
 
 	public List<Category> findByIsActiveTrue();
+
+	public Optional<Category> findByIdAndIsDeletedFalse(Integer id);
+
+	public List<Category> findByIsDeletedFalse();
+
+	public List<Category> findByIsActiveTrueAndIsDeletedFalse();
 
 }
