@@ -1,15 +1,23 @@
-package com.koyta.entity;
+package com.koyta.dto;
 
 import java.util.Date;
 
-import jakarta.persistence.MappedSuperclass;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
-@MappedSuperclass
-public class BaseModel  {
+@AllArgsConstructor
+@NoArgsConstructor
+public class CategoryDto {
+
+	private Integer id;
+
+	private String name;
+
+	private String description;
 
 	private Boolean isActive;
 
@@ -22,4 +30,5 @@ public class BaseModel  {
 	private Integer updatedBy;
 
 	private Date updatedOn;
+
 }

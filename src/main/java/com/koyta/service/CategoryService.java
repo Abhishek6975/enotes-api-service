@@ -2,12 +2,15 @@ package com.koyta.service;
 
 import java.util.List;
 
-import com.koyta.entity.Category;
+import com.koyta.dto.CategoryDto;
+import com.koyta.dto.CategoryResponse;
 
 public interface CategoryService {
 	
-	public Boolean saveCategory(Category category);
+	public Boolean saveCategory(CategoryDto categoryDto);
 	
-	public List<Category> getAllCategory();
+	public List<CategoryDto> getAllCategory();
+	
+	public List<CategoryResponse> getActiveCategory();
 
 }
