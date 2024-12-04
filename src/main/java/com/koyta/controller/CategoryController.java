@@ -36,7 +36,7 @@ public class CategoryController {
 			return new ResponseEntity<>("Save success", HttpStatus.CREATED);
 		} else {
 
-			return new ResponseEntity<>("Save success", HttpStatus.INTERNAL_SERVER_ERROR);
+			return new ResponseEntity<>("Not Save success", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
