@@ -18,8 +18,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.CategoryResponse;
 import com.koyta.entity.Category;
+import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.service.Impl.CategoryServiceImpl;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/category")
 public class CategoryController {
@@ -67,16 +71,17 @@ public class CategoryController {
 	}
 
 	@GetMapping("/{id}")
-	public ResponseEntity<?> getCategoryDetailsById(@PathVariable("id") Integer id) {
+	public ResponseEntity<?> getCategoryDetailsById(@PathVariable("id") Integer id) throws Exception {
 
 		CategoryDto categoryDto = categoryServiceImpl.getCategoryById(id);
 
 		if (ObjectUtils.isEmpty(categoryDto)) {
 
-			return new ResponseEntity<>("Category not found with id", HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>("Internal Server Error", HttpStatus.NOT_FOUND);
 		}
 
 		return new ResponseEntity<>(categoryDto, HttpStatus.OK);
+
 	}
 
 	@DeleteMapping("/{id}")

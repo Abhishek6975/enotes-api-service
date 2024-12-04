@@ -14,6 +14,7 @@ import org.springframework.web.servlet.FlashMap;
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.CategoryResponse;
 import com.koyta.entity.Category;
+import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.CategoryRepository;
 import com.koyta.service.CategoryService;
 
@@ -38,14 +39,14 @@ public class CategoryServiceImpl implements CategoryService {
 		Category category = modelMapper.map(categoryDto, Category.class);
 
 		if (ObjectUtils.isEmpty(category.getId())) {
-			
+
 			category.setIsDeleted(false);
 			category.setCreatedBy(1);
 			category.setCreatedOn(new Date());
-		}else {
-			
+		} else {
+
 			updateCategory(category);
-			
+
 		}
 
 		Category save = categoryRepository.save(category);
@@ -60,21 +61,21 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	private void updateCategory(Category category) {
-		
+
 		Optional<Category> findById = categoryRepository.findById(category.getId());
-		
-		if(findById.isPresent()) {
-			
+
+		if (findById.isPresent()) {
+
 			Category existCategory = findById.get();
 			category.setCreatedBy(existCategory.getCreatedBy());
 			category.setCreatedOn(existCategory.getCreatedOn());
 			category.setIsDeleted(existCategory.getIsDeleted());
-			
+
 			category.setUpdatedBy(1);
 			category.setUpdatedOn(new Date());
-			
+
 		}
-		
+
 	}
 
 	@Override
@@ -100,13 +101,12 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
-	public CategoryDto getCategoryById(Integer id) {
+	public CategoryDto getCategoryById(Integer id) throws Exception {
 
-		Optional<Category> findByCategory = categoryRepository.findByIdAndIsDeletedFalse(id);
+		Category category = categoryRepository.findByIdAndIsDeletedFalse(id)
+				.orElseThrow(() -> new ResourceNotFoundException("Category Not Found with Id " + id));
 
-		if (findByCategory.isPresent()) {
-
-			Category category = findByCategory.get();
+		if (!ObjectUtils.isEmpty(category)) {
 
 			return modelMapper.map(category, CategoryDto.class);
 		}
