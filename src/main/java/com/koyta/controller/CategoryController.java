@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.CategoryResponse;
-import com.koyta.entity.Category;
-import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.service.Impl.CategoryServiceImpl;
 
 import lombok.extern.slf4j.Slf4j;

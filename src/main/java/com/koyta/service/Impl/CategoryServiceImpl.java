@@ -4,12 +4,10 @@ import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
-import org.apache.catalina.mapper.Mapper;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.servlet.FlashMap;
 
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.CategoryResponse;
@@ -17,6 +15,7 @@ import com.koyta.entity.Category;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.CategoryRepository;
 import com.koyta.service.CategoryService;
+import com.koyta.util.Validation;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -27,14 +26,14 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	private ModelMapper modelMapper;
 
+	@Autowired
+	private Validation validation;
+
 	@Override
 	public Boolean saveCategory(CategoryDto categoryDto) {
 
-		/*
-		 * Category category = new Category(); category.setName(categoryDto.getName());
-		 * category.setDescription(categoryDto.getDescription());
-		 * category.setIsActive(categoryDto.getIsActive());
-		 */
+		// Validation Checking
+		validation.categoryValidation(categoryDto);
 
 		Category category = modelMapper.map(categoryDto, Category.class);
 
