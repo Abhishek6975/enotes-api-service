@@ -12,6 +12,7 @@ import org.springframework.util.ObjectUtils;
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.CategoryResponse;
 import com.koyta.entity.Category;
+import com.koyta.exception.ExistDataException;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.CategoryRepository;
 import com.koyta.service.CategoryService;
@@ -35,13 +36,24 @@ public class CategoryServiceImpl implements CategoryService {
 		// Validation Checking
 		validation.categoryValidation(categoryDto);
 
+		// Check Category exist or Not
+
+		Boolean exist = categoryRepository.existsByName(categoryDto.getName().trim());
+
+		if (exist) {
+
+			// throw error
+
+			throw new ExistDataException("Category already Exist");
+		}
+
 		Category category = modelMapper.map(categoryDto, Category.class);
 
 		if (ObjectUtils.isEmpty(category.getId())) {
 
 			category.setIsDeleted(false);
-	//		category.setCreatedBy(1);
-		//	category.setCreatedOn(new Date());
+			// category.setCreatedBy(1);
+			// category.setCreatedOn(new Date());
 		} else {
 
 			updateCategory(category);
@@ -70,8 +82,8 @@ public class CategoryServiceImpl implements CategoryService {
 			category.setCreatedOn(existCategory.getCreatedOn());
 			category.setIsDeleted(existCategory.getIsDeleted());
 
-		//	category.setUpdatedBy(1);
-			//category.setUpdatedOn(new Date());
+			// category.setUpdatedBy(1);
+			// category.setUpdatedOn(new Date());
 
 		}
 
