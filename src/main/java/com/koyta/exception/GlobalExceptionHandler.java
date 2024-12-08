@@ -34,7 +34,7 @@ public class GlobalExceptionHandler {
 	@ExceptionHandler(ResourceNotFoundException.class)
 	public ResponseEntity<?> handleResourceNotFoundException(Exception e) {
 
-		log.error("GlobalExceptionHandler || ResourceNotFoundException ||");
+		log.error("GlobalExceptionHandler || ResourceNotFoundException ||", e.getMessage());
 		// return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		return CommonUtil.createErrorResponseMessage(e.getMessage(), HttpStatus.NOT_FOUND);
 
