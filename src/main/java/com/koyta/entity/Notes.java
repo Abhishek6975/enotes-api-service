@@ -31,5 +31,8 @@ public class Notes extends BaseModel {
 	
 	@ManyToOne
 	private Category category;
+	
+	@ManyToOne
+	private FilesDetails filesDetails;
 
 }

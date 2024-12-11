@@ -30,7 +30,22 @@ public class NotesDto {
 
 	private Date updatedOn;
 
-	
+	private FilesDto filesDetails;
+
+	@Getter
+	@Setter
+	@AllArgsConstructor
+	@NoArgsConstructor
+	public static class FilesDto {
+
+		private Integer id;
+
+		private String originalFileName;
+
+		private String displayFileName;
+
+	}
+
 	@Getter
 	@Setter
 	@AllArgsConstructor
@@ -41,6 +56,5 @@ public class NotesDto {
 
 		private String name;
 	}
-	
 
 }
