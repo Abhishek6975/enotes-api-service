@@ -1,6 +1,8 @@
 package com.koyta.util;
 
+import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 
 import com.koyta.handler.GenericResponse;
@@ -54,6 +56,29 @@ public class CommonUtil {
 				.build();
 
 		return response.create();
+
+	}
+
+	public static String getContentType(String originalFileName) {
+
+		String extension = FilenameUtils.getExtension(originalFileName);
+
+		switch (extension) {
+		case "pdf":
+			return "application/pdf";
+		case "xlsx":
+			return "application/sheet";
+		case "txt":
+			return "text/plan";
+		case "png":
+			return "image/png";
+		case "jpeg":
+			return "image/jpeg";
+		case "java":
+			return "application/java";
+		default:
+			return "application/octet-strem";
+		}
 
 	}
 	
