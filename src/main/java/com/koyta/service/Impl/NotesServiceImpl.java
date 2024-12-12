@@ -28,6 +28,7 @@ import org.springframework.data.domain.Pageable;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koyta.dto.NotesDto;
 import com.koyta.dto.NotesDto.CategoryDto;
+import com.koyta.dto.NotesDto.FilesDto;
 import com.koyta.dto.NotesResponse;
 import com.koyta.entity.FilesDetails;
 import com.koyta.entity.Notes;
@@ -56,11 +57,17 @@ public class NotesServiceImpl implements NotesService {
 	private String uploadPath;
 
 	@Override
-	public Boolean saveNotes(String notes,  MultipartFile file) throws Exception{
+	public Boolean saveNotes(String notes,  MultipartFile file) throws Exception {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 
 		NotesDto notesDto = objectMapper.readValue(notes, NotesDto.class);
+		
+		//Update if id is given in Request
+		if(!ObjectUtils.isEmpty(notesDto.getId())) {
+			
+			updateNotes(notesDto, file);		
+		}
 
 		// Validation Notes Checking
 
@@ -75,8 +82,11 @@ public class NotesServiceImpl implements NotesService {
 			notesMap.setFilesDetails(filesDetails);
 
 		} else {
-
-			notesMap.setFilesDetails(null);
+			
+			if(ObjectUtils.isEmpty(notesDto.getId())) {
+				
+				notesMap.setFilesDetails(null);		
+			}
 		}
 
 		Notes saveNotes = notesRepository.save(notesMap);
@@ -88,6 +98,20 @@ public class NotesServiceImpl implements NotesService {
 
 		return false;
 
+	}
+
+	private void updateNotes(NotesDto notesDto, MultipartFile file) throws Exception {
+		
+		Notes exitsNotes = notesRepository.findById(notesDto.getId())
+				.orElseThrow(() -> new ResourceNotFoundException("Invalid Notes Id"));
+		
+		
+		//user not choose any file at notes update time
+		if(ObjectUtils.isEmpty(file) && !ObjectUtils.isEmpty(exitsNotes.getFilesDetails())){
+			
+			notesDto.setFilesDetails(modelMapper.map(exitsNotes.getFilesDetails(), FilesDto.class));
+			
+		}
 	}
 
 	private FilesDetails saveFileDetails(MultipartFile file) throws IOException, IllegalAccessException {
