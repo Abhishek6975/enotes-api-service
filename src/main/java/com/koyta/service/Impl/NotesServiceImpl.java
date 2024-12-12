@@ -12,18 +12,23 @@ import java.util.List;
 import java.util.UUID;
 import java.util.stream.Stream;
 
+import org.apache.catalina.mapper.Mapper;
 import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Pageable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koyta.dto.NotesDto;
 import com.koyta.dto.NotesDto.CategoryDto;
+import com.koyta.dto.NotesResponse;
 import com.koyta.entity.FilesDetails;
 import com.koyta.entity.Notes;
 import com.koyta.exception.ResourceNotFoundException;
@@ -190,6 +195,29 @@ public class NotesServiceImpl implements NotesService {
 		FilesDetails filesDetails = fileRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("File Not Found"));
 		return filesDetails;
+	}
+
+	@Override
+	public NotesResponse getAllNotesByUser(Integer userId, Integer pageNo, Integer pageSize) {
+		
+		Pageable pageable = PageRequest.of(pageNo, pageSize);
+
+		Page<Notes> pageNotes = notesRepository.findByCreatedBy(userId, pageable);
+
+		List<NotesDto> notesDtos = pageNotes.get().map(n -> modelMapper.map(n, NotesDto.class)).toList();
+
+		NotesResponse notes = NotesResponse.builder()
+				.notes(notesDtos)
+				.pageNo(pageNotes.getNumber())
+				.pageSize(pageNotes.getSize())
+				.totalElements(pageNotes.getTotalElements())
+				.totalPages(pageNotes.getTotalPages())
+				.isFirst(pageNotes.isFirst())
+				.isLast(pageNotes.isLast())
+				.build();
+		
+		
+		return notes;
 	}
 
 }

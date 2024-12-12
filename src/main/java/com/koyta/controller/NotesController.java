@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.koyta.dto.NotesDto;
+import com.koyta.dto.NotesResponse;
 import com.koyta.entity.FilesDetails;
 import com.koyta.service.NotesService;
 import com.koyta.util.CommonUtil;
@@ -65,11 +66,26 @@ public class NotesController {
 
 		if (CollectionUtils.isEmpty(allNotesDto)) {
 			return ResponseEntity.noContent().build();
-		} else {
-
-			return CommonUtil.createBuildResponse(allNotesDto, HttpStatus.OK);
 		}
 
+		return CommonUtil.createBuildResponse(allNotesDto, HttpStatus.OK);
+
+	}
+
+	@GetMapping("/user-notes")
+	public ResponseEntity<?> getAllNotesByUser(@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+			@RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize) {
+
+		Integer userId = 1;
+
+		NotesResponse notesDtos = notesService.getAllNotesByUser(userId, pageNo, pageSize);
+
+		/*
+		 * if (CollectionUtils.isEmpty(notesDtos)) { return
+		 * ResponseEntity.noContent().build(); }
+		 */
+
+		return CommonUtil.createBuildResponse(notesDtos, HttpStatus.OK);
 	}
 
 }
