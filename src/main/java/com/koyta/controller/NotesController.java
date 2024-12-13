@@ -8,6 +8,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -86,6 +87,62 @@ public class NotesController {
 		 */
 
 		return CommonUtil.createBuildResponse(notesDtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/delete/{id}")
+	public ResponseEntity<?> deleteNotes(@PathVariable("id") Integer id) throws Exception {
+		
+		notesService.softDeleteNotes(id);
+		
+		return CommonUtil.createBuildResponseMessage("delete Success", HttpStatus.OK);
+		
+	}
+	
+	@GetMapping("/restore/{id}")
+	public ResponseEntity<?> restoreNotes(@PathVariable("id") Integer id) throws Exception {
+		
+		notesService.restoreNotes(id);
+		
+		return CommonUtil.createBuildResponseMessage("Notes Restore Success", HttpStatus.OK);		
+	}
+	
+	
+	// Get All Deleted User's Notes Available In Recycle Bin. 
+	@GetMapping("/recycle-bin")
+	public ResponseEntity<?> getUserRecycleBinNotes() throws Exception {
+		
+		Integer userId = 1;
+		List<NotesDto> notes = notesService.getUserRecycleBinNotes(userId);
+		
+		if (CollectionUtils.isEmpty(notes)) {
+
+			return CommonUtil.createBuildResponseMessage("Notes not available in Recycle Bin", HttpStatus.OK);
+		}
+
+		return CommonUtil.createBuildResponse(notes, HttpStatus.OK);
+
+	}
+	
+	// Deletion Notes from Recycle Bin.
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<?> hardDeleteNotes(@PathVariable("id") Integer id) throws Exception {
+
+		notesService.hardDeleteNotes(id);
+
+		return CommonUtil.createBuildResponseMessage("delete Success", HttpStatus.OK);
+
+	}
+
+	// Delete All Notes From Recycle Bin At One Time.
+	@DeleteMapping("/delete")
+	public ResponseEntity<?> emptyRecycleBin() throws Exception {
+
+		Integer userId = 1;
+
+		notesService.emptyRecycleBin(userId);
+
+		return CommonUtil.createBuildResponseMessage("delete Success", HttpStatus.OK);
+
 	}
 
 }

@@ -1,5 +1,6 @@
 package com.koyta.dto;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import jakarta.persistence.Entity;
@@ -31,6 +32,10 @@ public class NotesDto {
 	private Date updatedOn;
 
 	private FilesDto filesDetails;
+
+	private Boolean isDeleted;
+
+	private LocalDateTime deletedOn;
 
 	@Getter
 	@Setter

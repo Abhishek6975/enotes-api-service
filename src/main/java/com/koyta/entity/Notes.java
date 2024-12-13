@@ -1,5 +1,9 @@
 package com.koyta.entity;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.util.Date;
+
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import jakarta.persistence.Entity;
@@ -34,5 +38,9 @@ public class Notes extends BaseModel {
 	
 	@ManyToOne
 	private FilesDetails filesDetails;
+	
+	private Boolean isDeleted;
+	
+	private LocalDateTime deletedOn;
 
 }
