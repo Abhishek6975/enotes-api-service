@@ -18,11 +18,14 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.koyta.dto.FavouriteNotesDto;
 import com.koyta.dto.NotesDto;
 import com.koyta.dto.NotesResponse;
 import com.koyta.entity.FilesDetails;
 import com.koyta.service.NotesService;
 import com.koyta.util.CommonUtil;
+
+import lombok.Getter;
 
 @RestController
 @RequestMapping("/api/v1/notes")
@@ -143,6 +146,35 @@ public class NotesController {
 
 		return CommonUtil.createBuildResponseMessage("delete Success", HttpStatus.OK);
 
+	}
+	
+	@GetMapping("/fav/{notesId}")
+	public ResponseEntity<?> favouriteNote(@PathVariable("notesId") Integer notesId) throws Exception {
+		
+		notesService.favouriteNotes(notesId);
+		
+		return CommonUtil.createBuildResponseMessage("Notes added Favourite", HttpStatus.CREATED);
+	}
+
+	@DeleteMapping("/un-fav/{favNotesId}")
+	public ResponseEntity<?> unFavouriteNote(@PathVariable("favNotesId") Integer favNotesId) throws Exception {
+
+		notesService.unFavouriteNotes(favNotesId);
+
+		return CommonUtil.createBuildResponseMessage("Remove Favourite", HttpStatus.OK);
+	}
+
+	@GetMapping("/fav-notes")
+	public ResponseEntity<?> getUserfavouriteNote() {
+
+		List<FavouriteNotesDto> userFavouriteNotes = notesService.getUserFavouriteNotes();
+
+		if (CollectionUtils.isEmpty(userFavouriteNotes)) {
+
+			return ResponseEntity.noContent().build();
+		}
+
+		return CommonUtil.createBuildResponse(userFavouriteNotes, HttpStatus.OK);
 	}
 
 }

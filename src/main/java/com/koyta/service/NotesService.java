@@ -6,15 +6,17 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.koyta.dto.FavouriteNotesDto;
 import com.koyta.dto.NotesDto;
 import com.koyta.dto.NotesResponse;
+import com.koyta.entity.FavouriteNotes;
 import com.koyta.entity.FilesDetails;
 import com.koyta.exception.ResourceNotFoundException;
 
 public interface NotesService {
-	
-	public Boolean saveNotes(String notes , MultipartFile file) throws Exception;
-	
+
+	public Boolean saveNotes(String notes, MultipartFile file) throws Exception;
+
 	public List<NotesDto> getAllNotes();
 
 	public byte[] downloadFile(FilesDetails fileDetails) throws ResourceNotFoundException, IOException;
@@ -32,5 +34,13 @@ public interface NotesService {
 	public void hardDeleteNotes(Integer id) throws Exception;
 
 	public void emptyRecycleBin(Integer userId);
+
+	public void favouriteNotes(Integer noteId) throws Exception;
+	
+	public void unFavouriteNotes(Integer noteId) throws Exception;
+	
+	public List<FavouriteNotesDto> getUserFavouriteNotes(); 
+	
+	
 
 }

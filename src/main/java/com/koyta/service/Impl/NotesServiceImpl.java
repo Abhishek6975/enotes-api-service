@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Stream;
 
@@ -30,14 +31,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.data.domain.Pageable;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.koyta.dto.FavouriteNotesDto;
 import com.koyta.dto.NotesDto;
 import com.koyta.dto.NotesDto.CategoryDto;
 import com.koyta.dto.NotesDto.FilesDto;
 import com.koyta.dto.NotesResponse;
+import com.koyta.entity.FavouriteNotes;
 import com.koyta.entity.FilesDetails;
 import com.koyta.entity.Notes;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.CategoryRepository;
+import com.koyta.repository.FavouriteNotesRepository;
 import com.koyta.repository.FileRepository;
 import com.koyta.repository.NotesRepository;
 import com.koyta.service.NotesService;
@@ -56,6 +60,9 @@ public class NotesServiceImpl implements NotesService {
 	
 	@Autowired
 	private FileRepository fileRepository;
+	
+	@Autowired
+	private FavouriteNotesRepository favouriteNotesRepository;
 	
 	@Value("${file.upload.path}")
 	private String uploadPath;
@@ -306,6 +313,45 @@ public class NotesServiceImpl implements NotesService {
 			notesRepository.deleteAll(recycleNotes);
 		}
 		
+	}
+
+	@Override
+	public void favouriteNotes(Integer noteId) throws Exception {
+
+		Integer userId = 1;
+
+		Notes notes = notesRepository.findById(noteId)
+				.orElseThrow(() -> new ResourceNotFoundException("Notes id Invalid"));
+
+		FavouriteNotes favouriteNotes = FavouriteNotes.builder()
+				.notes(notes)
+				.userId(userId)
+				.build();
+
+		favouriteNotesRepository.save(favouriteNotes);
+
+	}
+
+	@Override
+	public void unFavouriteNotes(Integer FavouriteNoteId) throws Exception {
+		
+
+		 FavouriteNotes favNote = favouriteNotesRepository.findById(FavouriteNoteId)
+				.orElseThrow(() -> new ResourceNotFoundException("Favourite Note Not Found"));
+		
+		favouriteNotesRepository.delete(favNote);
+		
+	}
+
+	@Override
+	public List<FavouriteNotesDto> getUserFavouriteNotes() {
+		
+		Integer userId = 1;
+		List<FavouriteNotes> favNotes = favouriteNotesRepository.findByUserId(userId);
+
+		return favNotes.stream().map((FavouriteNotes favN) -> modelMapper.map(favN, FavouriteNotesDto.class))
+				.toList();
+
 	}
 
 }
