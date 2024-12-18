@@ -7,6 +7,10 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.ObjectUtils;
 
 import com.koyta.dto.CategoryDto;
+import com.koyta.dto.TodoDto;
+import com.koyta.dto.TodoDto.StatusDto;
+import com.koyta.enums.TodoStatus;
+import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.exception.ValidationException;
 
 @Component
@@ -62,5 +66,27 @@ public class Validation {
 			throw new ValidationException(error);
 		}
 
+	}
+
+	public void todoValidation(TodoDto todoDto) throws Exception {
+
+		StatusDto reqStatus = todoDto.getStatus();
+
+		Boolean statusFound = false;
+
+		TodoStatus[] status = TodoStatus.values();
+
+		for (TodoStatus st : TodoStatus.values()) {
+
+			if (st.getId().equals(reqStatus.getId())) {
+				
+				statusFound = true;
+
+			}
+		}
+		
+		if(!statusFound) {
+			throw new ResourceNotFoundException("invalid Status");
+		}
 	}
 }
