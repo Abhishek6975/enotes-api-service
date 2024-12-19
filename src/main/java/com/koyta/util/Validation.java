@@ -19,15 +19,20 @@ import com.koyta.dto.UserDto;
 import com.koyta.entity.Role;
 import com.koyta.entity.User;
 import com.koyta.enums.TodoStatus;
+import com.koyta.exception.ExistDataException;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.exception.ValidationException;
 import com.koyta.repository.RoleRepository;
+import com.koyta.repository.UserRepository;
 
 @Component
 public class Validation {
 	
 	@Autowired
 	private RoleRepository roleRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
 
 	public void categoryValidation(CategoryDto categoryDto) {
 
@@ -115,6 +120,13 @@ public class Validation {
 
 		if (!StringUtils.hasText(userDto.getEmail()) || !userDto.getEmail().matches(AppConstants.EMAIL_REGEX)) {
 			throw new ResourceNotFoundException("email is Invalid");
+		} else {
+			Boolean existsEmail = userRepository.existsByEmail(userDto.getEmail());
+
+			if (existsEmail) {
+
+				throw new ExistDataException("Email already Exist");
+			}
 		}
 		
 		if (!StringUtils.hasText(userDto.getMobileNo()) || !userDto.getMobileNo().matches(AppConstants.MOBILENO_REGEX)) {
@@ -131,10 +143,10 @@ public class Validation {
 			List<Integer> invalidReqRoleIds = userDto.getRoles().stream().map(role -> role.getId()).
 					filter(roleId -> !rolesIds.contains(roleId)).toList();
 			
-			if(!CollectionUtils.isEmpty(invalidReqRoleIds)) {
+			if (!CollectionUtils.isEmpty(invalidReqRoleIds)) {
 				throw new ResourceNotFoundException("role is Invalid " + invalidReqRoleIds);
 			}
-		}	
-
+		}
+		
 	}
 }

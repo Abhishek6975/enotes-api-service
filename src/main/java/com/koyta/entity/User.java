@@ -33,7 +33,7 @@ public class User {
 	private String email;
 
 	private String mobileNo;
-	
+
 	private String password;
 
 	@OneToMany(cascade = CascadeType.ALL)
