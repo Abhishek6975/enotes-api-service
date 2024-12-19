@@ -1,20 +1,33 @@
 package com.koyta.util;
 
+import java.util.Collections;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 
+import org.hibernate.bytecode.internal.bytebuddy.PrivateAccessorException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
+import org.springframework.util.StringUtils;
 
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.TodoDto;
 import com.koyta.dto.TodoDto.StatusDto;
+import com.koyta.dto.UserDto;
+import com.koyta.entity.Role;
+import com.koyta.entity.User;
 import com.koyta.enums.TodoStatus;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.exception.ValidationException;
+import com.koyta.repository.RoleRepository;
 
 @Component
 public class Validation {
+	
+	@Autowired
+	private RoleRepository roleRepository;
 
 	public void categoryValidation(CategoryDto categoryDto) {
 
@@ -79,14 +92,49 @@ public class Validation {
 		for (TodoStatus st : TodoStatus.values()) {
 
 			if (st.getId().equals(reqStatus.getId())) {
-				
+
 				statusFound = true;
 
 			}
 		}
-		
-		if(!statusFound) {
+
+		if (!statusFound) {
 			throw new ResourceNotFoundException("invalid Status");
 		}
+	}
+
+	public void userValidation(UserDto userDto) throws Exception {
+
+		if (!StringUtils.hasText(userDto.getFirstName())) {
+			throw new ResourceNotFoundException("first name is Invalid");
+		}
+
+		if (!StringUtils.hasText(userDto.getLastName())) {
+			throw new ResourceNotFoundException("last name is Invalid");
+		}
+
+		if (!StringUtils.hasText(userDto.getEmail()) || !userDto.getEmail().matches(AppConstants.EMAIL_REGEX)) {
+			throw new ResourceNotFoundException("email is Invalid");
+		}
+		
+		if (!StringUtils.hasText(userDto.getMobileNo()) || !userDto.getMobileNo().matches(AppConstants.MOBILENO_REGEX)) {
+			throw new ResourceNotFoundException("Mobile No.is Invalid");
+		}
+		
+		if (CollectionUtils.isEmpty(userDto.getRoles())) {
+
+			throw new ResourceNotFoundException("role is Invalid");
+		} else {
+
+			List<Integer> rolesIds = roleRepository.findAll().stream().map(role -> role.getId()).toList();
+
+			List<Integer> invalidReqRoleIds = userDto.getRoles().stream().map(role -> role.getId()).
+					filter(roleId -> !rolesIds.contains(roleId)).toList();
+			
+			if(!CollectionUtils.isEmpty(invalidReqRoleIds)) {
+				throw new ResourceNotFoundException("role is Invalid " + invalidReqRoleIds);
+			}
+		}	
+
 	}
 }
