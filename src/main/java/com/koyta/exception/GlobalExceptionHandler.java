@@ -39,7 +39,14 @@ public class GlobalExceptionHandler {
 		log.error("GlobalExceptionHandler || ResourceNotFoundException ||", e.getMessage());
 		// return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
 		return CommonUtil.createErrorResponseMessage(e.getMessage(), HttpStatus.NOT_FOUND);
+	}
+	
+	@ExceptionHandler(SuccessException.class)
+	public ResponseEntity<?> handleSuccessException(Exception e) {
 
+		log.error("GlobalExceptionHandler || SuccessException ||", e.getMessage());
+		// return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
+		return CommonUtil.createBuildResponseMessage(e.getMessage(), HttpStatus.NOT_FOUND);
 	}
 
 	@ExceptionHandler(ValidationException.class)
