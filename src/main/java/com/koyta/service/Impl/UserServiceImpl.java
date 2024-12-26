@@ -7,10 +7,17 @@ import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
+import com.koyta.config.security.CustomUserDetails;
 import com.koyta.dto.EmailRequest;
+import com.koyta.dto.LoginRequest;
+import com.koyta.dto.LoginResponse;
 import com.koyta.dto.UserDto;
 import com.koyta.entity.AccountStatus;
 import com.koyta.entity.Role;
@@ -35,9 +42,15 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	@Autowired
 	private EmailService emailService;
+
+	@Autowired
+	private AuthenticationManager authenticationManager;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
 
 	@Override
 	public Boolean register(UserDto userDto, String url) throws Exception {
@@ -54,7 +67,8 @@ public class UserServiceImpl implements UserService {
 				.build();
 
 		user.setStatus(accountStatus);
-
+		user.setPassword(passwordEncoder.encode(user.getPassword()));
+		
 		User save = userRepository.save(user);
 
 		if (!ObjectUtils.isEmpty(save)) {
@@ -102,6 +116,29 @@ public class UserServiceImpl implements UserService {
 
 		user.setRoles(roles);
 
+	}
+
+	@Override
+	public LoginResponse login(LoginRequest loginRequest) {
+
+		Authentication authenticate = authenticationManager.authenticate(
+				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+		
+		
+		if(authenticate.isAuthenticated()) {
+			
+			CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
+			
+			String token = "akdsdluelqgecbsurklagdqnmdqadkadmdzcmqwulkcnzzxvcnmzlapgwvan";
+			LoginResponse loginResponse = LoginResponse.builder()
+					.user(modelMapper.map(customUserDetails.getUser(), UserDto.class))
+					.token(token)
+					.build();
+			
+			return loginResponse;
+		}
+
+		return null;
 	}
 
 }
