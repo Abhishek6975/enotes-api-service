@@ -24,6 +24,7 @@ import com.koyta.entity.Role;
 import com.koyta.entity.User;
 import com.koyta.repository.RoleRepository;
 import com.koyta.repository.UserRepository;
+import com.koyta.service.JwtService;
 import com.koyta.service.UserService;
 import com.koyta.util.AppConstants;
 import com.koyta.util.Validation;
@@ -51,6 +52,9 @@ public class UserServiceImpl implements UserService {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	
+	@Autowired
+	private JwtService jwtService;
 
 	@Override
 	public Boolean register(UserDto userDto, String url) throws Exception {
@@ -129,7 +133,7 @@ public class UserServiceImpl implements UserService {
 			
 			CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
 			
-			String token = "akdsdluelqgecbsurklagdqnmdqadkadmdzcmqwulkcnzzxvcnmzlapgwvan";
+			String token = jwtService.generateToken(customUserDetails.getUser());
 			LoginResponse loginResponse = LoginResponse.builder()
 					.user(modelMapper.map(customUserDetails.getUser(), UserDto.class))
 					.token(token)
