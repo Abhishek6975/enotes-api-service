@@ -7,6 +7,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -35,6 +36,7 @@ public class NotesController {
 	private NotesService notesService;
 
 	@PostMapping("/")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> saveNotes(@RequestParam String notes, @RequestParam(required = false) MultipartFile file)
 			throws Exception {
 
@@ -47,6 +49,7 @@ public class NotesController {
 	}
 
 	@GetMapping("/download/{id}")
+	@PreAuthorize("hasAnyRole('USER','ADMIN')")
 	public ResponseEntity<?> downloadFile(@PathVariable("id") Integer id) throws Exception {
 
 		FilesDetails fileDetails = notesService.getFileDetails(id);
@@ -64,6 +67,7 @@ public class NotesController {
 	}
 
 	@GetMapping("/")
+	@PreAuthorize("hasRole('ADMIN')")
 	public ResponseEntity<?> getAllNotes() {
 
 		List<NotesDto> allNotesDto = notesService.getAllNotes();
@@ -77,6 +81,7 @@ public class NotesController {
 	}
 
 	@GetMapping("/user-notes")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getAllNotesByUser(@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
 			@RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize) {
 
@@ -93,6 +98,7 @@ public class NotesController {
 	}
 	
 	@GetMapping("/delete/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> deleteNotes(@PathVariable("id") Integer id) throws Exception {
 		
 		notesService.softDeleteNotes(id);
@@ -102,6 +108,7 @@ public class NotesController {
 	}
 	
 	@GetMapping("/restore/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> restoreNotes(@PathVariable("id") Integer id) throws Exception {
 		
 		notesService.restoreNotes(id);
@@ -112,6 +119,7 @@ public class NotesController {
 	
 	// Get All Deleted User's Notes Available In Recycle Bin. 
 	@GetMapping("/recycle-bin")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getUserRecycleBinNotes() throws Exception {
 		
 		Integer userId = 1;
@@ -128,6 +136,7 @@ public class NotesController {
 	
 	// Deletion Notes from Recycle Bin.
 	@DeleteMapping("/delete/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> hardDeleteNotes(@PathVariable("id") Integer id) throws Exception {
 
 		notesService.hardDeleteNotes(id);
@@ -138,6 +147,7 @@ public class NotesController {
 
 	// Delete All Notes From Recycle Bin At One Time.
 	@DeleteMapping("/delete")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> emptyRecycleBin() throws Exception {
 
 		Integer userId = 1;
@@ -149,6 +159,7 @@ public class NotesController {
 	}
 	
 	@GetMapping("/fav/{notesId}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> favouriteNote(@PathVariable("notesId") Integer notesId) throws Exception {
 		
 		notesService.favouriteNotes(notesId);
@@ -157,6 +168,7 @@ public class NotesController {
 	}
 
 	@DeleteMapping("/un-fav/{favNotesId}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> unFavouriteNote(@PathVariable("favNotesId") Integer favNotesId) throws Exception {
 
 		notesService.unFavouriteNotes(favNotesId);
@@ -165,6 +177,7 @@ public class NotesController {
 	}
 
 	@GetMapping("/fav-notes")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> getUserfavouriteNote() {
 
 		List<FavouriteNotesDto> userFavouriteNotes = notesService.getUserFavouriteNotes();
@@ -178,6 +191,7 @@ public class NotesController {
 	}
 	
 	@GetMapping("/copy/{id}")
+	@PreAuthorize("hasRole('USER')")
 	public ResponseEntity<?> copyNotes(@PathVariable("id") Integer id) throws Exception {
 
 		Boolean copyNotes = notesService.copyNotes(id);
