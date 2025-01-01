@@ -45,6 +45,7 @@ import com.koyta.repository.FavouriteNotesRepository;
 import com.koyta.repository.FileRepository;
 import com.koyta.repository.NotesRepository;
 import com.koyta.service.NotesService;
+import com.koyta.util.CommonUtil;
 
 @Service
 public class NotesServiceImpl implements NotesService {
@@ -234,7 +235,9 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public NotesResponse getAllNotesByUser(Integer userId, Integer pageNo, Integer pageSize) {
+	public NotesResponse getAllNotesByUser(Integer pageNo, Integer pageSize) {
+		
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		
 		Pageable pageable = PageRequest.of(pageNo, pageSize);
 
@@ -280,7 +283,9 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public List<NotesDto> getUserRecycleBinNotes(Integer userId) {
+	public List<NotesDto> getUserRecycleBinNotes() {
+		
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		
 		List<Notes> recycleNotes = notesRepository.findByCreatedByAndIsDeletedTrue(userId);
 
@@ -304,7 +309,9 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public void emptyRecycleBin(Integer userId) {
+	public void emptyRecycleBin() {
+		
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		
 		List<Notes> recycleNotes = notesRepository.findByCreatedByAndIsDeletedTrue(userId);
 		
@@ -346,7 +353,7 @@ public class NotesServiceImpl implements NotesService {
 	@Override
 	public List<FavouriteNotesDto> getUserFavouriteNotes() {
 		
-		Integer userId = 1;
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 		List<FavouriteNotes> favNotes = favouriteNotesRepository.findByUserId(userId);
 
 		return favNotes.stream().map((FavouriteNotes favN) -> modelMapper.map(favN, FavouriteNotesDto.class))

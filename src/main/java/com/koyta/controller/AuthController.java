@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koyta.dto.LoginRequest;
 import com.koyta.dto.LoginResponse;
-import com.koyta.dto.UserDto;
+import com.koyta.dto.UserRequest;
 import com.koyta.service.UserService;
 import com.koyta.util.CommonUtil;
 
@@ -25,7 +25,7 @@ public class AuthController {
 	private UserService userService;
 
 	@PostMapping("/")
-	public ResponseEntity<?> registerUser(@RequestBody UserDto userDto, HttpServletRequest request) throws Exception {
+	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception {
 
 		String url = CommonUtil.getUrl(request);
 

@@ -14,6 +14,7 @@ import com.koyta.enums.TodoStatus;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.TodoRepository;
 import com.koyta.service.TodoService;
+import com.koyta.util.CommonUtil;
 import com.koyta.util.Validation;
 
 @Service
@@ -81,7 +82,7 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public List<TodoDto> getTodoByUser() {
 
-		Integer userId = 1;
+		Integer userId = CommonUtil.getLoggedInUser().getId();
 
 		List<Todo> todoList = todoRepository.findByCreatedBy(userId);
 

@@ -18,7 +18,7 @@ import com.koyta.config.security.CustomUserDetails;
 import com.koyta.dto.EmailRequest;
 import com.koyta.dto.LoginRequest;
 import com.koyta.dto.LoginResponse;
-import com.koyta.dto.UserDto;
+import com.koyta.dto.UserRequest;
 import com.koyta.entity.AccountStatus;
 import com.koyta.entity.Role;
 import com.koyta.entity.User;
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
 	private JwtService jwtService;
 
 	@Override
-	public Boolean register(UserDto userDto, String url) throws Exception {
+	public Boolean register(UserRequest userDto, String url) throws Exception {
 
 		validation.userValidation(userDto);
 
@@ -112,7 +112,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	private void setRoles(UserDto userDto, User user) {
+	private void setRoles(UserRequest userDto, User user) {
 
 		List<Integer> reqRoleId = userDto.getRoles().stream().map(r -> r.getId()).toList();
 
@@ -135,7 +135,7 @@ public class UserServiceImpl implements UserService {
 			
 			String token = jwtService.generateToken(customUserDetails.getUser());
 			LoginResponse loginResponse = LoginResponse.builder()
-					.user(modelMapper.map(customUserDetails.getUser(), UserDto.class))
+					.user(modelMapper.map(customUserDetails.getUser(), UserRequest.class))
 					.token(token)
 					.build();
 			

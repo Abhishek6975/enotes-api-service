@@ -15,7 +15,7 @@ import org.springframework.util.StringUtils;
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.TodoDto;
 import com.koyta.dto.TodoDto.StatusDto;
-import com.koyta.dto.UserDto;
+import com.koyta.dto.UserRequest;
 import com.koyta.entity.Role;
 import com.koyta.entity.User;
 import com.koyta.enums.TodoStatus;
@@ -108,7 +108,7 @@ public class Validation {
 		}
 	}
 
-	public void userValidation(UserDto userDto) throws Exception {
+	public void userValidation(UserRequest userDto) throws Exception {
 
 		if (!StringUtils.hasText(userDto.getFirstName())) {
 			throw new ResourceNotFoundException("first name is Invalid");
