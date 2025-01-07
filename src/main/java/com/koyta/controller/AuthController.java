@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.koyta.dto.LoginRequest;
 import com.koyta.dto.LoginResponse;
 import com.koyta.dto.UserRequest;
-import com.koyta.service.UserService;
+import com.koyta.service.AuthService;
 import com.koyta.util.CommonUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
@@ -22,14 +22,14 @@ import jakarta.servlet.http.HttpServletRequest;
 public class AuthController {
 
 	@Autowired
-	private UserService userService;
+	private AuthService authService;
 
 	@PostMapping("/")
 	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception {
 
 		String url = CommonUtil.getUrl(request);
 
-		Boolean register = userService.register(userDto, url);
+		Boolean register = authService.register(userDto, url);
 
 		if (register) {
 
@@ -42,7 +42,7 @@ public class AuthController {
 	@PostMapping("/login")
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
 
-		LoginResponse loginResponse = userService.login(loginRequest);
+		LoginResponse loginResponse = authService.login(loginRequest);
 
 		if (ObjectUtils.isEmpty(loginResponse)) {
 
