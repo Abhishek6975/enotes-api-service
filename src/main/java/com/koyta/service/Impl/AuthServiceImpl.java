@@ -28,7 +28,10 @@ import com.koyta.repository.UserRepository;
 import com.koyta.service.JwtService;
 import com.koyta.service.AuthService;
 import com.koyta.util.AppConstants;
+import com.koyta.util.CommonUtil;
 import com.koyta.util.Validation;
+
+import jakarta.servlet.http.HttpServletRequest;
 
 @Service
 public class AuthServiceImpl implements AuthService {
@@ -58,7 +61,9 @@ public class AuthServiceImpl implements AuthService {
 	private JwtService jwtService;
 
 	@Override
-	public Boolean register(UserRequest userDto, String url) throws Exception {
+	public Boolean register(UserRequest userDto, HttpServletRequest request) throws Exception {
+		
+		String url = CommonUtil.getUrl(request);
 
 		validation.userValidation(userDto);
 
@@ -80,7 +85,7 @@ public class AuthServiceImpl implements AuthService {
 
 			// send Email
 
-			emailSend(save, url);
+			emailSendForRegister(save, url);
 
 			return true;
 		}
@@ -89,9 +94,9 @@ public class AuthServiceImpl implements AuthService {
 
 	}
 
-	private void emailSend(User saveUser, String url) throws Exception {
+	private void emailSendForRegister(User saveUser, String url) throws Exception {
 		
-		String baseUrl = AppConstants.getBaseUrl(url);
+		String baseUrl = AppConstants.getVerificationUrl(url);
 		String verificationUrl = baseUrl + "?id="
 				+ URLEncoder.encode(String.valueOf(saveUser.getId()), StandardCharsets.UTF_8) + "&vc="
 				+ URLEncoder.encode(saveUser.getStatus().getVerificationCode(), StandardCharsets.UTF_8);
@@ -104,8 +109,8 @@ public class AuthServiceImpl implements AuthService {
 
 		EmailRequest emailRequest = EmailRequest.builder()
 				.to(saveUser.getEmail())
-				.title("Account Confirmation")
-				.subject("Account Created Success")
+				.title("Koyta Team")
+				.subject("Verify your account")
 				.message(message)
 				.build();
 		

@@ -27,9 +27,7 @@ public class AuthController {
 	@PostMapping("/")
 	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception {
 
-		String url = CommonUtil.getUrl(request);
-
-		Boolean register = authService.register(userDto, url);
+		Boolean register = authService.register(userDto, request);
 
 		if (register) {
 
