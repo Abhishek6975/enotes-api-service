@@ -85,14 +85,23 @@ public class NotesController {
 	public ResponseEntity<?> getAllNotesByUser(@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
 			@RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize) {
 
-		Integer userId = CommonUtil.getLoggedInUser().getId();
-
 		NotesResponse notesDtos = notesService.getAllNotesByUser(pageNo, pageSize);
 
 		/*
 		 * if (CollectionUtils.isEmpty(notesDtos)) { return
 		 * ResponseEntity.noContent().build(); }
 		 */
+
+		return CommonUtil.createBuildResponse(notesDtos, HttpStatus.OK);
+	}
+	
+	@GetMapping("/search")
+	@PreAuthorize("hasRole('USER')")
+	public ResponseEntity<?> searchNotes(@RequestParam(name = "key", defaultValue = "") String key,
+			@RequestParam(name = "pageNo", defaultValue = "0") Integer pageNo,
+			@RequestParam(name = "pageSize", defaultValue = "4") Integer pageSize) {
+
+		NotesResponse notesDtos = notesService.getNotesByUserSearch(pageNo, pageSize, key);
 
 		return CommonUtil.createBuildResponse(notesDtos, HttpStatus.OK);
 	}

@@ -25,6 +25,8 @@ public interface NotesService {
 
 	public NotesResponse getAllNotesByUser(Integer pageNo, Integer pageSize);
 
+	public NotesResponse getNotesByUserSearch(Integer pageNo, Integer pageSize, String keyword);
+
 	public void softDeleteNotes(Integer id) throws Exception;
 
 	public void restoreNotes(Integer id) throws Exception;
@@ -36,13 +38,11 @@ public interface NotesService {
 	public void emptyRecycleBin();
 
 	public void favouriteNotes(Integer noteId) throws Exception;
-	
+
 	public void unFavouriteNotes(Integer noteId) throws Exception;
-	
+
 	public List<FavouriteNotesDto> getUserFavouriteNotes();
 
-	public Boolean copyNotes(Integer id) throws Exception; 
-	
-	
+	public Boolean copyNotes(Integer id) throws Exception;
 
 }
