@@ -4,14 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koyta.dto.LoginRequest;
 import com.koyta.dto.LoginResponse;
 import com.koyta.dto.UserRequest;
+import com.koyta.endpoint.AuthEndpoint;
 import com.koyta.service.AuthService;
 import com.koyta.util.CommonUtil;
 
@@ -20,13 +19,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/auth")
-public class AuthController {
+public class AuthController implements AuthEndpoint {
 
 	@Autowired
 	private AuthService authService;
 
-	@PostMapping("/")
+	@Override
 	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception {
 		
 		log.info("AuthController : registerUser() : Execution Start");
@@ -41,7 +39,7 @@ public class AuthController {
 		return CommonUtil.createBuildResponseMessage("Register Success", HttpStatus.CREATED);
 	}
 
-	@PostMapping("/login")
+	@Override
 	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception {
 
 		LoginResponse loginResponse = authService.login(loginRequest);

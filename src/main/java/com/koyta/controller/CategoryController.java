@@ -8,16 +8,14 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koyta.dto.CategoryDto;
 import com.koyta.dto.CategoryResponse;
+import com.koyta.endpoint.CategoryEndpoint;
 import com.koyta.service.Impl.CategoryServiceImpl;
 import com.koyta.util.CommonUtil;
 
@@ -25,14 +23,12 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @RestController
-@RequestMapping("/api/v1/category")
-public class CategoryController {
+public class CategoryController implements CategoryEndpoint {
 
 	@Autowired
 	private CategoryServiceImpl categoryServiceImpl;
 
-	@PostMapping("/save")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto) {
 
 		Boolean saveCategory = categoryServiceImpl.saveCategory(categoryDto);
@@ -64,8 +60,7 @@ public class CategoryController {
 
 	}
 
-	@GetMapping("/active")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	@Override
 	public ResponseEntity<?> getActiveCategory() {
 
 		List<CategoryResponse> allCategory = categoryServiceImpl.getActiveCategory();
@@ -79,8 +74,7 @@ public class CategoryController {
 
 	}
 
-	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> getCategoryDetailsById(@PathVariable("id") Integer id) throws Exception {
 
 		CategoryDto categoryDto = categoryServiceImpl.getCategoryById(id);
@@ -96,8 +90,7 @@ public class CategoryController {
 
 	}
 
-	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@Override
 	public ResponseEntity<?> deleteCategoryById(@PathVariable("id") Integer id) {
 
 		Boolean deleted = categoryServiceImpl.deleteCategoryById(id);
