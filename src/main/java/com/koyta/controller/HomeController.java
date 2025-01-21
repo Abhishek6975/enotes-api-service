@@ -1,5 +1,7 @@
 package com.koyta.controller;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +22,8 @@ import jakarta.servlet.http.HttpServletRequest;
 @RestController
 @RequestMapping("/api/v1/home")
 public class HomeController {
+	
+	Logger log = LoggerFactory.getLogger(HomeController.class);
 
 	@Autowired
 	private HomeService homeService;
@@ -31,12 +35,15 @@ public class HomeController {
 	public ResponseEntity<?> verifyUserAccount(@RequestParam("id") Integer id, @RequestParam("vc") String vc)
 			throws Exception {
 
+		log.info("HomeController : verifyUserAccount : Execution Start");
 		Boolean verifyAccount = homeService.verifyAccount(id, vc);
 
 		if (verifyAccount) {
 
 			return CommonUtil.createBuildResponseMessage("Account verification success", HttpStatus.OK);
 		}
+		
+		log.info("HomeController :verifyUserAccount : Execution End");
 		return CommonUtil.createErrorResponseMessage("invalid Verification link", HttpStatus.BAD_REQUEST);
 
 	}

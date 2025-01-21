@@ -16,7 +16,9 @@ import com.koyta.service.AuthService;
 import com.koyta.util.CommonUtil;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @RestController
 @RequestMapping("/api/v1/auth")
 public class AuthController {
@@ -26,15 +28,17 @@ public class AuthController {
 
 	@PostMapping("/")
 	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request) throws Exception {
-
+		
+		log.info("AuthController : registerUser() : Execution Start");
 		Boolean register = authService.register(userDto, request);
 
-		if (register) {
-
-			return CommonUtil.createBuildResponseMessage("Register Success", HttpStatus.CREATED);
+		if (!register) {
+			log.info("Error : ()", "Register failed");
+			return CommonUtil.createErrorResponseMessage("Failed Registration", HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-
-		return CommonUtil.createErrorResponseMessage("Failed Registration", HttpStatus.INTERNAL_SERVER_ERROR);
+		
+		log.info("AuthController : registerUser() : Execution End");
+		return CommonUtil.createBuildResponseMessage("Register Success", HttpStatus.CREATED);
 	}
 
 	@PostMapping("/login")

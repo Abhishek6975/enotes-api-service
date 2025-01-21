@@ -32,7 +32,9 @@ import com.koyta.util.CommonUtil;
 import com.koyta.util.Validation;
 
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class AuthServiceImpl implements AuthService {
 
@@ -63,6 +65,7 @@ public class AuthServiceImpl implements AuthService {
 	@Override
 	public Boolean register(UserRequest userDto, HttpServletRequest request) throws Exception {
 		
+		log.info("AuthServiceImpl : register() : Start");
 		String url = CommonUtil.getUrl(request);
 
 		validation.userValidation(userDto);
@@ -81,16 +84,17 @@ public class AuthServiceImpl implements AuthService {
 		
 		User save = userRepository.save(user);
 
-		if (!ObjectUtils.isEmpty(save)) {
-
-			// send Email
-
-			emailSendForRegister(save, url);
-
-			return true;
+		if (ObjectUtils.isEmpty(save)) {
+			log.info("Error : {}","user not save");
+			return false;
 		}
+		
+		// send Email
+		emailSendForRegister(save, url);
+		log.info("message : {}","email send success");
+		log.info("AuthServiceImpl : register() : End");
+		return true;
 
-		return false;
 
 	}
 
