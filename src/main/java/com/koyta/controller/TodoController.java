@@ -23,7 +23,7 @@ public class TodoController implements TodoEndpoint {
 	private TodoService todoService;
 
 	@Override
-	public ResponseEntity<?> saveTodo(@RequestBody TodoDto todoDto) throws Exception {
+	public ResponseEntity<?> saveTodo(TodoDto todoDto) throws Exception {
 
 		Boolean saveTodo = todoService.saveTodo(todoDto);
 
@@ -36,7 +36,7 @@ public class TodoController implements TodoEndpoint {
 	}
 
 	@Override
-	public ResponseEntity<?> getTodoById(@PathVariable("todoId") Integer todoId) throws Exception {
+	public ResponseEntity<?> getTodoById(Integer todoId) throws Exception {
 
 		TodoDto todo = todoService.getTodoById(todoId);
 

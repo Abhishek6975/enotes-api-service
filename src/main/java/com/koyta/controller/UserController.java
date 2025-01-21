@@ -40,7 +40,7 @@ public class UserController implements UserEndpoint {
 	}
 
 	@PostMapping("/chng-pswd")
-	public ResponseEntity<?> changePassword(@RequestBody PasswordChngRequest passwordChngRequest) throws Exception {
+	public ResponseEntity<?> changePassword(PasswordChngRequest passwordChngRequest) throws Exception {
 
 		userService.changePassword(passwordChngRequest);
 		return CommonUtil.createBuildResponseMessage("Password Changed Success", HttpStatus.OK);
