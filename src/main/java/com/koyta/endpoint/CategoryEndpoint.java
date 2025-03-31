@@ -1,5 +1,8 @@
 package com.koyta.endpoint;
 
+import static com.koyta.util.AppConstants.ROLE_ADMIN;
+import static com.koyta.util.AppConstants.ROLE_USER_ADMIN;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -10,28 +13,29 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.koyta.dto.CategoryDto;
+import com.koyta.util.AppConstants;
 
 @RequestMapping("/api/v1/category")
 public interface CategoryEndpoint {
 
 	@PostMapping("/save")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize(ROLE_ADMIN)
 	public ResponseEntity<?> saveCategory(@RequestBody CategoryDto categoryDto);
 
 	@GetMapping("/")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize(ROLE_ADMIN)
 	public ResponseEntity<?> getAllCategory();
 
 	@GetMapping("/active")
-	@PreAuthorize("hasAnyRole('USER','ADMIN')")
+	@PreAuthorize(ROLE_USER_ADMIN)
 	public ResponseEntity<?> getActiveCategory();
 
 	@GetMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize(ROLE_ADMIN)
 	public ResponseEntity<?> getCategoryDetailsById(@PathVariable("id") Integer id) throws Exception;
 
 	@DeleteMapping("/{id}")
-	@PreAuthorize("hasRole('ADMIN')")
+	@PreAuthorize(AppConstants.ROLE_ADMIN)
 	public ResponseEntity<?> deleteCategoryById(@PathVariable("id") Integer id);
 
 }

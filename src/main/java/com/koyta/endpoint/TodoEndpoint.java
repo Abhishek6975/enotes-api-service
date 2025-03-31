@@ -1,5 +1,7 @@
 package com.koyta.endpoint;
 
+import static com.koyta.util.AppConstants.ROLE_USER;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,15 +16,15 @@ import com.koyta.dto.TodoDto;
 public interface TodoEndpoint {
 
 	@PostMapping("/")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> saveTodo(@RequestBody TodoDto todoDto) throws Exception;
 
 	@GetMapping("/{todoId}")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getTodoById(@PathVariable("todoId") Integer todoId) throws Exception;
 
 	@GetMapping("/list")
-	@PreAuthorize("hasRole('USER')")
+	@PreAuthorize(ROLE_USER)
 	public ResponseEntity<?> getAllTodoByUser();
 
 }
