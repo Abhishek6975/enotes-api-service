@@ -3,12 +3,22 @@ package com.koyta.util;
 public final class AppConstants {
 
 	public static final String EMAIL_REGEX = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,6}$";
-	
+
 	public static final String MOBILENO_REGEX = "^[7-9][0-9]{9}$";
 
 	public static final String VERIFY_PATH = "/api/v1/home/verify";
 
 	public static final String PSWD_REST_PATH = "/api/v1/home/verify-pswd-link";
+
+	public static final String ROLE_ADMIN = "hasRole('ADMIN')";
+
+	public static final String ROLE_USER = "hasRole('USER')";
+
+	public static final String ROLE_USER_ADMIN = "hasAnyRole('USER','ADMIN')";
+	
+	public static final String DEFAULT_PAGE_NO ="0";
+	
+	public static final String DEFAULT_PAGE_SIZE ="10";
 
 	private AppConstants() {
 		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");

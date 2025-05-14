@@ -22,7 +22,9 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 @Service
 public class JwtServiceImpl implements JwtService {
 	
@@ -33,12 +35,15 @@ public class JwtServiceImpl implements JwtService {
 		try {
 
 			KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
-			System.out.println("keyGenerator :" + keyGenerator );
+			log.info("JwtServiceImpl : keyGenerator : " + keyGenerator);
+			
 			SecretKey key = keyGenerator.generateKey();
-			System.out.println("key :" + key);
+			
+			log.info("JwtServiceImpl : Key :" + key);
+			
 			secretKey = Base64.getEncoder().encodeToString(key.getEncoded());
 			
-			System.out.println("secretKey :" + secretKey);
+			log.info("JwtServiceImpl : SecretKey :" + secretKey);
 
 		} catch (Exception e) {
 			e.printStackTrace();

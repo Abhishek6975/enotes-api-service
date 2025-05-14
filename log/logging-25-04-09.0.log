@@ -1,0 +1,391 @@
+2025-09-50 21:50:49.773 WARN  [HikariPool-47 housekeeper] com.zaxxer.hikari.pool.HikariPool - HikariPool-47 - Thread starvation or clock leap detected (housekeeper delta=2d2h36m19s912ms860µs900ns).
+2025-09-53 21:53:32.605 INFO  [File Watcher] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-09-53 21:53:32.668 INFO  [Thread-187] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-53 21:53:32.685 INFO  [tomcat-shutdown] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-09-53 21:53:32.813 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-53 21:53:32.816 INFO  [Thread-187] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-09-53 21:53:33.320 INFO  [Thread-187] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-53 21:53:33.329 INFO  [Thread-187] com.zaxxer.hikari.HikariDataSource - HikariPool-47 - Shutdown initiated...
+2025-09-53 21:53:33.334 INFO  [Thread-187] com.zaxxer.hikari.HikariDataSource - HikariPool-47 - Shutdown completed.
+2025-09-53 21:53:33.626 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 13016 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-53 21:53:33.626 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-53 21:53:33.807 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-53 21:53:33.827 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 17 ms. Found 7 JPA repository interfaces.
+2025-09-53 21:53:33.931 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-53 21:53:33.932 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-53 21:53:33.932 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-53 21:53:33.932 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-53 21:53:33.945 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-53 21:53:33.945 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 318 ms
+2025-09-53 21:53:33.953 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@2404ca40
+2025-09-53 21:53:33.953 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@fa77c213
+2025-09-53 21:53:33.954 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :eRbVlqEk5EXx/qkkjVTCbScpog5Jw88V9F8aOW+zLSk=
+2025-09-53 21:53:33.993 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-53 21:53:33.995 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-53 21:53:34.002 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-53 21:53:34.004 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-48 - Starting...
+2025-09-53 21:53:34.018 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-48 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e0c16d8
+2025-09-53 21:53:34.019 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-48 - Start completed.
+2025-09-53 21:53:34.020 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-53 21:53:34.020 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-53 21:53:34.020 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-48)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-53 21:53:34.123 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-53 21:53:34.123 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-53 21:53:34.188 WARN  [restartedMain] o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'swaggerConfig' defined in file [A:\Spring-Projects\Enotes-API-Service\target\classes\com\koyta\config\SwaggerConfig.class]: Failed to instantiate [com.koyta.config.SwaggerConfig$$SpringCGLIB$$0]: Constructor threw exception
+2025-09-53 21:53:34.188 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-53 21:53:34.188 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-48 - Shutdown initiated...
+2025-09-53 21:53:34.228 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-48 - Shutdown completed.
+2025-09-53 21:53:34.229 INFO  [restartedMain] o.a.catalina.core.StandardService - Stopping service [Tomcat]
+2025-09-53 21:53:34.236 INFO  [restartedMain] o.s.b.a.l.ConditionEvaluationReportLogger - 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2025-09-53 21:53:34.255 ERROR [restartedMain] o.s.boot.SpringApplication - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'swaggerConfig' defined in file [A:\Spring-Projects\Enotes-API-Service\target\classes\com\koyta\config\SwaggerConfig.class]: Failed to instantiate [com.koyta.config.SwaggerConfig$$SpringCGLIB$$0]: Constructor threw exception
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1333)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1218)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.koyta.EnotesApiServiceApplication.main(EnotesApiServiceApplication.java:14)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:50)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [com.koyta.config.SwaggerConfig$$SpringCGLIB$$0]: Constructor threw exception
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:222)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:122)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateBean(AbstractAutowireCapableBeanFactory.java:1327)
+	... 24 common frames omitted
+Caused by: java.lang.Error: Unresolved compilation problems: 
+	The import io.swagger.v3.oas.models.security.SecurityScheme collides with another import statement
+	Syntax error on token "*", delete this token
+
+	at com.koyta.config.SwaggerConfig.<init>(SwaggerConfig.java:16)
+	at com.koyta.config.SwaggerConfig$$SpringCGLIB$$0.<init>(<generated>)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance0(Native Method)
+	at java.base/jdk.internal.reflect.NativeConstructorAccessorImpl.newInstance(NativeConstructorAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingConstructorAccessorImpl.newInstance(DelegatingConstructorAccessorImpl.java:45)
+	at java.base/java.lang.reflect.Constructor.newInstanceWithCaller(Constructor.java:499)
+	at java.base/java.lang.reflect.Constructor.newInstance(Constructor.java:480)
+	at org.springframework.beans.BeanUtils.instantiateClass(BeanUtils.java:196)
+	... 26 common frames omitted
+2025-09-55 21:55:16.105 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 13016 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-55 21:55:16.105 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-55 21:55:16.254 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-55 21:55:16.268 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 7 JPA repository interfaces.
+2025-09-55 21:55:16.346 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-55 21:55:16.347 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-55 21:55:16.347 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-55 21:55:16.347 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-55 21:55:16.360 INFO  [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-55 21:55:16.360 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 254 ms
+2025-09-55 21:55:16.364 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@3265ede2
+2025-09-55 21:55:16.364 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@fa77d65b
+2025-09-55 21:55:16.364 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :Uh0a80R9v3qzWtvt5IG4CC4dMdeywMZzLZ1NUUmJG3Q=
+2025-09-55 21:55:16.389 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-55 21:55:16.391 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-55 21:55:16.396 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-55 21:55:16.396 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-49 - Starting...
+2025-09-55 21:55:16.408 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-49 - Added connection com.mysql.cj.jdbc.ConnectionImpl@368225dc
+2025-09-55 21:55:16.408 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-49 - Start completed.
+2025-09-55 21:55:16.409 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-55 21:55:16.409 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-55 21:55:16.409 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-49)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-55 21:55:16.469 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-55 21:55:16.469 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-55 21:55:16.557 INFO  [restartedMain] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-55 21:55:16.557 WARN  [restartedMain] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-55 21:55:16.679 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-55 21:55:16.929 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-55 21:55:16.938 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-55 21:55:16.941 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-55 21:55:16.946 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 0.854 seconds (process running for 198160.068)
+2025-09-55 21:55:16.947 INFO  [restartedMain] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-09-59 21:59:43.649 INFO  [File Watcher] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-09-59 21:59:43.650 INFO  [Thread-191] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-59 21:59:43.651 INFO  [tomcat-shutdown] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-09-59 21:59:43.755 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-59 21:59:43.755 INFO  [Thread-191] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-09-59 21:59:43.757 INFO  [Thread-191] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-59 21:59:43.758 INFO  [Thread-191] com.zaxxer.hikari.HikariDataSource - HikariPool-49 - Shutdown initiated...
+2025-09-59 21:59:43.762 INFO  [Thread-191] com.zaxxer.hikari.HikariDataSource - HikariPool-49 - Shutdown completed.
+2025-09-59 21:59:43.851 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 13016 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-59 21:59:43.851 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-59 21:59:43.982 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-59 21:59:43.996 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 13 ms. Found 7 JPA repository interfaces.
+2025-09-59 21:59:44.080 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-59 21:59:44.081 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-59 21:59:44.081 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-59 21:59:44.081 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-59 21:59:44.092 INFO  [restartedMain] o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-59 21:59:44.092 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 240 ms
+2025-09-59 21:59:44.098 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@58711fa9
+2025-09-59 21:59:44.098 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@fa77f843
+2025-09-59 21:59:44.098 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :TxyM8ORgr/8dSNZMuKJ18gCqfxBLS/ME1XJUBrTkavU=
+2025-09-59 21:59:44.131 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-59 21:59:44.132 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-59 21:59:44.136 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-59 21:59:44.137 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-50 - Starting...
+2025-09-59 21:59:44.159 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-50 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4143d797
+2025-09-59 21:59:44.159 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-50 - Start completed.
+2025-09-59 21:59:44.160 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-59 21:59:44.160 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-59 21:59:44.160 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-50)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-59 21:59:44.216 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-59 21:59:44.216 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-59 21:59:44.292 INFO  [restartedMain] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-59 21:59:44.292 WARN  [restartedMain] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-59 21:59:44.397 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-59 21:59:44.624 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-59 21:59:44.633 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-59 21:59:44.635 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-59 21:59:44.640 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 0.809 seconds (process running for 198427.761)
+2025-09-59 21:59:44.641 INFO  [restartedMain] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-09-01 22:01:28.746 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat-1].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-01 22:01:28.746 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-01 22:01:28.748 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-01 22:01:29.170 INFO  [http-nio-8080-exec-4] o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 103 ms
+2025-09-05 22:05:18.790 INFO  [RMI TCP Connection(286)-127.0.0.1] o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-09-05 22:05:18.793 INFO  [RMI TCP Connection(286)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-05 22:05:18.794 INFO  [tomcat-shutdown] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-09-05 22:05:18.843 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-05 22:05:18.844 INFO  [RMI TCP Connection(286)-127.0.0.1] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-09-05 22:05:18.848 INFO  [RMI TCP Connection(286)-127.0.0.1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-05 22:05:18.851 INFO  [RMI TCP Connection(286)-127.0.0.1] com.zaxxer.hikari.HikariDataSource - HikariPool-50 - Shutdown initiated...
+2025-09-05 22:05:18.859 INFO  [RMI TCP Connection(286)-127.0.0.1] com.zaxxer.hikari.HikariDataSource - HikariPool-50 - Shutdown completed.
+2025-09-59 22:59:35.032 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 1088 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-59 22:59:35.035 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-59 22:59:35.102 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-59 22:59:35.102 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-59 22:59:36.159 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-59 22:59:36.276 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 106 ms. Found 7 JPA repository interfaces.
+2025-09-59 22:59:37.040 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-59 22:59:37.051 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-59 22:59:37.052 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-59 22:59:37.053 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-59 22:59:37.106 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-59 22:59:37.106 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 2002 ms
+2025-09-59 22:59:37.130 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@49bd2271
+2025-09-59 22:59:37.131 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@fa77ef28
+2025-09-59 22:59:37.132 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :3SMJI1JPyh1x88Ql9WlXBWvoexZFuG8PD11cLbKfHTY=
+2025-09-59 22:59:37.289 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-59 22:59:37.355 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+2025-09-59 22:59:37.392 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-59 22:59:37.663 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-59 22:59:37.696 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-59 22:59:38.088 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5cd94966
+2025-09-59 22:59:38.091 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-59 22:59:38.165 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-59 22:59:38.166 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-59 22:59:38.185 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-59 22:59:39.558 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-59 22:59:39.561 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-59 22:59:40.070 INFO  [restartedMain] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-59 22:59:40.071 WARN  [restartedMain] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-59 22:59:40.176 INFO  [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-59 22:59:41.783 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-59 22:59:42.613 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-59 22:59:42.642 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-59 22:59:42.675 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-59 22:59:42.691 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 8.127 seconds (process running for 9.432)
+2025-09-00 23:00:07.473 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-00 23:00:07.474 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-00 23:00:07.478 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 4 ms
+2025-09-00 23:00:09.183 INFO  [http-nio-8080-exec-8] o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 1018 ms
+2025-09-05 23:05:12.375 INFO  [File Watcher] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-09-05 23:05:12.385 INFO  [Thread-5] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-05 23:05:12.389 INFO  [tomcat-shutdown] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:12.464 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-05 23:05:12.465 INFO  [Thread-5] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:12.471 INFO  [Thread-5] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-05 23:05:12.475 INFO  [Thread-5] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2025-09-05 23:05:12.485 INFO  [Thread-5] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2025-09-05 23:05:12.595 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 1088 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-05 23:05:12.595 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-05 23:05:12.817 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-05 23:05:12.852 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 34 ms. Found 7 JPA repository interfaces.
+2025-09-05 23:05:13.006 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-05 23:05:13.006 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:13.006 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-05 23:05:13.006 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-05 23:05:13.023 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-05 23:05:13.023 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 426 ms
+2025-09-05 23:05:13.030 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@67ba9993
+2025-09-05 23:05:13.030 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@fa77ceef
+2025-09-05 23:05:13.030 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :hGN/jlT1zSDUzsJgPvVoPl8F2++muJLJ+E4N4fN1QGE=
+2025-09-05 23:05:13.069 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-05 23:05:13.071 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-05 23:05:13.080 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-05 23:05:13.081 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Starting...
+2025-09-05 23:05:13.098 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-2 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7d59afe5
+2025-09-05 23:05:13.098 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Start completed.
+2025-09-05 23:05:13.098 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-05 23:05:13.100 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-05 23:05:13.100 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-2)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-05 23:05:13.252 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-05 23:05:13.252 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-05 23:05:13.446 INFO  [restartedMain] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-05 23:05:13.447 WARN  [restartedMain] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-05 23:05:13.681 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-05 23:05:14.178 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-05 23:05:14.191 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:14.204 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-05 23:05:14.213 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 1.662 seconds (process running for 340.955)
+2025-09-05 23:05:14.216 INFO  [restartedMain] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-09-05 23:05:57.796 INFO  [File Watcher] o.s.b.d.a.LocalDevToolsAutoConfiguration$RestartingClassPathChangeChangedEventListener - Restarting due to 1 class path change (0 additions, 0 deletions, 1 modification)
+2025-09-05 23:05:57.799 INFO  [Thread-7] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-05 23:05:57.801 INFO  [tomcat-shutdown] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:57.882 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-05 23:05:57.883 INFO  [Thread-7] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:57.889 INFO  [Thread-7] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-05 23:05:57.890 INFO  [Thread-7] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown initiated...
+2025-09-05 23:05:57.907 INFO  [Thread-7] com.zaxxer.hikari.HikariDataSource - HikariPool-2 - Shutdown completed.
+2025-09-05 23:05:57.999 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 1088 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-05 23:05:57.999 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-05 23:05:58.197 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-05 23:05:58.227 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 29 ms. Found 7 JPA repository interfaces.
+2025-09-05 23:05:58.369 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-05 23:05:58.369 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:58.369 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-05 23:05:58.369 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-05 23:05:58.395 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-05 23:05:58.395 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 394 ms
+2025-09-05 23:05:58.402 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@6a260ff1
+2025-09-05 23:05:58.402 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@5883470
+2025-09-05 23:05:58.402 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :nhDDLlRixO0kgrCmcwEittdnGIqSHtWSOAY96qRqmU8=
+2025-09-05 23:05:58.450 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-05 23:05:58.453 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-05 23:05:58.463 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-05 23:05:58.464 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Starting...
+2025-09-05 23:05:58.483 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-3 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6b87a2db
+2025-09-05 23:05:58.483 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Start completed.
+2025-09-05 23:05:58.484 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-05 23:05:58.485 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-05 23:05:58.485 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-3)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-05 23:05:58.664 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-05 23:05:58.665 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-05 23:05:58.834 INFO  [restartedMain] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-05 23:05:58.835 WARN  [restartedMain] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-05 23:05:59.044 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-05 23:05:59.341 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-05 23:05:59.351 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-05 23:05:59.355 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-05 23:05:59.363 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 1.39 seconds (process running for 386.104)
+2025-09-05 23:05:59.366 INFO  [restartedMain] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation unchanged
+2025-09-06 23:06:02.083 INFO  [http-nio-8080-exec-2] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-06 23:06:02.084 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-06 23:06:02.086 INFO  [http-nio-8080-exec-2] o.s.web.servlet.DispatcherServlet - Completed initialization in 2 ms
+2025-09-06 23:06:02.752 INFO  [http-nio-8080-exec-7] o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 270 ms
+2025-09-07 23:07:19.971 INFO  [RMI TCP Connection(23)-127.0.0.1] o.s.b.a.SpringApplicationAdminMXBeanRegistrar$SpringApplicationAdmin - Application shutdown requested.
+2025-09-07 23:07:19.974 INFO  [RMI TCP Connection(23)-127.0.0.1] o.s.b.w.e.tomcat.GracefulShutdown - Commencing graceful shutdown. Waiting for active requests to complete
+2025-09-07 23:07:19.974 INFO  [tomcat-shutdown] o.a.coyote.http11.Http11NioProtocol - Pausing ProtocolHandler ["http-nio-8080"]
+2025-09-07 23:07:20.037 INFO  [tomcat-shutdown] o.s.b.w.e.tomcat.GracefulShutdown - Graceful shutdown complete
+2025-09-07 23:07:20.037 INFO  [RMI TCP Connection(23)-127.0.0.1] o.a.coyote.http11.Http11NioProtocol - Stopping ProtocolHandler ["http-nio-8080"]
+2025-09-07 23:07:20.040 INFO  [RMI TCP Connection(23)-127.0.0.1] o.s.o.j.LocalContainerEntityManagerFactoryBean - Closing JPA EntityManagerFactory for persistence unit 'default'
+2025-09-07 23:07:20.041 INFO  [RMI TCP Connection(23)-127.0.0.1] com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown initiated...
+2025-09-07 23:07:20.047 INFO  [RMI TCP Connection(23)-127.0.0.1] com.zaxxer.hikari.HikariDataSource - HikariPool-3 - Shutdown completed.
+2025-09-07 23:07:22.470 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Starting EnotesApiServiceApplication using Java 17.0.10 with PID 19840 (A:\Spring-Projects\Enotes-API-Service\target\classes started by abhis in A:\Spring-Projects\Enotes-API-Service)
+2025-09-07 23:07:22.473 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - The following 1 profile is active: "dev"
+2025-09-07 23:07:22.515 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2025-09-07 23:07:22.516 INFO  [restartedMain] o.s.b.d.e.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2025-09-07 23:07:23.410 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2025-09-07 23:07:23.486 INFO  [restartedMain] o.s.d.r.c.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 68 ms. Found 7 JPA repository interfaces.
+2025-09-07 23:07:24.351 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2025-09-07 23:07:24.362 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2025-09-07 23:07:24.365 INFO  [restartedMain] o.a.catalina.core.StandardService - Starting service [Tomcat]
+2025-09-07 23:07:24.365 INFO  [restartedMain] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-09-07 23:07:24.426 INFO  [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2025-09-07 23:07:24.427 INFO  [restartedMain] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1910 ms
+2025-09-07 23:07:24.457 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : keyGenerator : javax.crypto.KeyGenerator@4b73531f
+2025-09-07 23:07:24.458 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : Key :javax.crypto.spec.SecretKeySpec@fa77e0be
+2025-09-07 23:07:24.459 INFO  [restartedMain] c.koyta.service.Impl.JwtServiceImpl - JwtServiceImpl : SecretKey :8vly1hL2+n2y2vRtUX5lrnCYTDraohd8Ai9RaYyoeHE=
+2025-09-07 23:07:24.632 INFO  [restartedMain] o.h.jpa.internal.util.LogHelper - HHH000204: Processing PersistenceUnitInfo [name: default]
+2025-09-07 23:07:24.683 INFO  [restartedMain] org.hibernate.Version - HHH000412: Hibernate ORM core version 6.6.2.Final
+2025-09-07 23:07:24.719 INFO  [restartedMain] o.h.c.i.RegionFactoryInitiator - HHH000026: Second-level cache disabled
+2025-09-07 23:07:25.008 INFO  [restartedMain] o.s.o.j.p.SpringPersistenceUnitInfo - No LoadTimeWeaver setup: ignoring JPA class transformer
+2025-09-07 23:07:25.065 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2025-09-07 23:07:25.484 INFO  [restartedMain] com.zaxxer.hikari.pool.HikariPool - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@685e60ef
+2025-09-07 23:07:25.486 INFO  [restartedMain] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2025-09-07 23:07:25.543 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000025: MySQL8Dialect does not need to be specified explicitly using 'hibernate.dialect' (remove the property setting and it will be selected by default)
+2025-09-07 23:07:25.544 WARN  [restartedMain] org.hibernate.orm.deprecation - HHH90000026: MySQL8Dialect has been deprecated; use org.hibernate.dialect.MySQLDialect instead
+2025-09-07 23:07:25.570 INFO  [restartedMain] o.hibernate.orm.connections.pooling - HHH10001005: Database info:
+	Database JDBC URL [Connecting through datasource 'HikariDataSource (HikariPool-1)']
+	Database driver: undefined/unknown
+	Database version: 8.0
+	Autocommit mode: undefined/unknown
+	Isolation level: undefined/unknown
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2025-09-07 23:07:26.965 INFO  [restartedMain] o.h.e.t.j.p.i.JtaPlatformInitiator - HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2025-09-07 23:07:26.969 INFO  [restartedMain] o.s.o.j.LocalContainerEntityManagerFactoryBean - Initialized JPA EntityManagerFactory for persistence unit 'default'
+2025-09-07 23:07:27.496 INFO  [restartedMain] o.s.s.c.a.a.c.InitializeAuthenticationProviderBeanManagerConfigurer$InitializeAuthenticationProviderManagerConfigurer - Global AuthenticationManager configured with AuthenticationProvider bean with name authenticationProvider
+2025-09-07 23:07:27.496 WARN  [restartedMain] o.s.s.c.a.a.c.InitializeUserDetailsBeanManagerConfigurer$InitializeUserDetailsManagerConfigurer - Global AuthenticationManager configured with an AuthenticationProvider bean. UserDetailsService beans will not be used by Spring Security for automatically configuring username/password login. Consider removing the AuthenticationProvider bean. Alternatively, consider using the UserDetailsService in a manually instantiated DaoAuthenticationProvider. If the current configuration is intentional, to turn off this warning, increase the logging level of 'org.springframework.security.config.annotation.authentication.configuration.InitializeUserDetailsBeanManagerConfigurer' to ERROR
+2025-09-07 23:07:27.613 INFO  [restartedMain] o.s.d.j.r.query.QueryEnhancerFactory - Hibernate is in classpath; If applicable, HQL parser will be used.
+2025-09-07 23:07:29.302 WARN  [restartedMain] o.s.b.a.o.j.JpaBaseConfiguration$JpaWebConfiguration - spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2025-09-07 23:07:30.313 INFO  [restartedMain] o.s.b.d.a.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2025-09-07 23:07:30.342 INFO  [restartedMain] o.a.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2025-09-07 23:07:30.363 INFO  [restartedMain] o.s.b.w.e.tomcat.TomcatWebServer - Tomcat started on port 8080 (http) with context path '/'
+2025-09-07 23:07:30.381 INFO  [restartedMain] c.koyta.EnotesApiServiceApplication - Started EnotesApiServiceApplication in 8.305 seconds (process running for 9.281)
+2025-09-07 23:07:30.484 INFO  [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-09-07 23:07:30.485 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2025-09-07 23:07:30.486 INFO  [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet - Completed initialization in 1 ms
+2025-09-07 23:07:31.564 INFO  [http-nio-8080-exec-9] o.s.api.AbstractOpenApiResource - Init duration for springdoc-openapi is: 591 ms
+2025-09-51 23:51:32.190 ERROR [http-nio-8080-exec-4] c.k.exception.GlobalExceptionHandler - GlobalExceptionHandler : handleResourceNotFoundException() : File Not Found
+2025-09-51 23:51:32.194 WARN  [http-nio-8080-exec-4] o.s.w.s.m.m.a.ExceptionHandlerExceptionResolver - Resolved [com.koyta.exception.ResourceNotFoundException: File Not Found]
