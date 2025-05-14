@@ -35,7 +35,19 @@ spring:
         smtp:
           auth: true
           starttls:
-            enable: true    
+            enable: true 
+
+server:
+  port: 8080
+             
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path : /enotes-doc
+  api-docs:
+    path: /enotes-api-doc 
+    
 file:
   upload:
     path: notes/
@@ -49,7 +61,7 @@ spring:
     url: jdbc:mysql://localhost:3306/enotes_test
     driver-class-name: com.mysql.cj.jdbc.Driver
     username: root
-    password: root
+    password: abhi123
   jpa:
     properties:
       hibernate:
@@ -70,7 +82,19 @@ spring:
         smtp:
           auth: true
         starttls:
-          enable: true       
+          enable: true 
+
+server:
+  port: 8081  
+          
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path : /enotes-doc
+  api-docs:
+    path: /enotes-api-doc 
+        
 file:
   upload:
     path: notes/
@@ -105,7 +129,19 @@ spring:
         smtp:
           auth: true
         starttls:
-          enable: true       
+          enable: true    
+
+server:
+  port: 8083
+          
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path : /enotes-doc
+  api-docs:
+    path: /enotes-api-doc 
+       
 file:
   upload:
     path: notes/
@@ -140,7 +176,18 @@ spring:
         smtp:
           auth: true
         starttls:
-          enable: true       
+          enable: true     
+server:
+  port: 8082
+           
+springdoc:
+  swagger-ui:
+    operationsSorter: method
+    tagsSorter: alpha 
+    path : /enotes-doc
+  api-docs:
+    path: /enotes-api-doc 
+      
 file:
   upload:
     path: notes/
