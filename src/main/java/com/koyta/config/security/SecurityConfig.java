@@ -58,7 +58,7 @@ public class SecurityConfig {
 
 		httpSecurity.authorizeHttpRequests(authorize -> {
 			authorize.requestMatchers("/api/v1/home/**", "/api/v1/auth/**", "/swagger-ui/**", "/v3/api-docs/**",
-					"/enotes-doc", "/enotes-api-doc/**").permitAll();
+					"/enotes-doc", "/enotes-api-doc/**","/actuator/**").permitAll();
 			authorize.anyRequest().authenticated();
 		});
 
