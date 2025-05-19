@@ -1,6 +1,5 @@
 package com.koyta.controller;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.ObjectUtils;
@@ -10,6 +9,8 @@ import com.koyta.dto.LoginRequest;
 import com.koyta.dto.LoginResponse;
 import com.koyta.dto.UserRequest;
 import com.koyta.endpoint.AuthEndpoint;
+import com.koyta.exception.AuthenticationFailedException;
+import com.koyta.exception.UserRegistrationException;
 import com.koyta.service.AuthService;
 import com.koyta.util.CommonUtil;
 
@@ -20,14 +21,18 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class AuthController implements AuthEndpoint {
 
-	@Autowired
 	private AuthService authService;
 
+	public AuthController(AuthService authService) {
+		super();
+		this.authService = authService;
+	}
+
 	@Override
-	public ResponseEntity<?> registerUser(UserRequest userDto, HttpServletRequest request) throws Exception {
+	public ResponseEntity<?> registerUser(UserRequest userDto, HttpServletRequest request) throws UserRegistrationException {
 		
 		log.info("AuthController : registerUser() : Execution Start");
-		Boolean register = authService.register(userDto, request);
+		boolean register = authService.register(userDto, request);
 
 		if (!register) {
 			log.info("Error : ()", "Register failed");
@@ -39,7 +44,7 @@ public class AuthController implements AuthEndpoint {
 	}
 
 	@Override
-	public ResponseEntity<?> login(LoginRequest loginRequest) throws Exception {
+	public ResponseEntity<?> login(LoginRequest loginRequest) throws AuthenticationFailedException  {
 
 		LoginResponse loginResponse = authService.login(loginRequest);
 

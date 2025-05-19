@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.koyta.dto.TodoDto;
+import com.koyta.exception.ResourceNotFoundException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,12 +23,12 @@ public interface TodoEndpoint {
 	@Operation(summary = "Save Todo",tags = {"Notes"},description = "Save Todo")
 	@PostMapping("/")
 	@PreAuthorize(ROLE_USER)
-	public ResponseEntity<?> saveTodo(@RequestBody TodoDto todoDto) throws Exception;
+	public ResponseEntity<?> saveTodo(@RequestBody TodoDto todoDto) throws ResourceNotFoundException;
 
 	@Operation(summary = "Get Todo",tags = {"Notes"},description = "Get Todo By Id")
 	@GetMapping("/{todoId}")
 	@PreAuthorize(ROLE_USER)
-	public ResponseEntity<?> getTodoById(@PathVariable("todoId") Integer todoId) throws Exception;
+	public ResponseEntity<?> getTodoById(@PathVariable("todoId") Integer todoId) throws ResourceNotFoundException;
 
 	@Operation(summary = "All Todo List",tags = {"Notes"},description = "Login User Todo List")
 	@GetMapping("/list")

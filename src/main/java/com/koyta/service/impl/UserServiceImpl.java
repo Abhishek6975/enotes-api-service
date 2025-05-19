@@ -1,14 +1,11 @@
-package com.koyta.service.Impl;
+package com.koyta.service.impl;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Optional;
 import java.util.UUID;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.util.ObjectUtils;
 import org.springframework.util.StringUtils;
 
 import com.koyta.dto.EmailRequest;
@@ -26,17 +23,21 @@ import jakarta.servlet.http.HttpServletRequest;
 @Service
 public class UserServiceImpl implements UserService {
 
-	@Autowired
 	private PasswordEncoder passwordEncoder;
 
-	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
 	private EmailService emailService;
 
+	public UserServiceImpl(PasswordEncoder passwordEncoder, UserRepository userRepository, EmailService emailService) {
+		super();
+		this.passwordEncoder = passwordEncoder;
+		this.userRepository = userRepository;
+		this.emailService = emailService;
+	}
+
 	@Override
-	public void changePassword(PasswordChngRequest passwordRequest) throws Exception {
+	public void changePassword(PasswordChngRequest passwordRequest) throws IllegalAccessException {
 
 		User loggedInUser = CommonUtil.getLoggedInUser();
 
@@ -53,7 +54,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void sendEmailPasswordReset(String email, HttpServletRequest request) throws Exception {
+	public void sendEmailPasswordReset(String email, HttpServletRequest request) throws ResourceNotFoundException {
 
 		String url = CommonUtil.getUrl(request);
 
@@ -72,7 +73,7 @@ public class UserServiceImpl implements UserService {
 
 	}
 
-	private void sendEmailRequest(User user , String url) throws Exception {
+	private void sendEmailRequest(User user , String url) {
 
 		String baseUrl = AppConstants.getPasswordResetUrl(url);
 		
@@ -98,7 +99,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void verifyPswdRestLink(Integer id, String vc) throws Exception {
+	public void verifyPswdRestLink(Integer id, String vc) throws ResourceNotFoundException {
 
 		User user = userRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("invalid user"));
 
@@ -131,7 +132,7 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public void resetPassword(PswdResetRequest pswdResetRequest) throws Exception {
+	public void resetPassword(PswdResetRequest pswdResetRequest) throws ResourceNotFoundException {
 
 		User user = userRepository.findById(pswdResetRequest.getUserId())
 				.orElseThrow(() -> new ResourceNotFoundException("invalid user"));

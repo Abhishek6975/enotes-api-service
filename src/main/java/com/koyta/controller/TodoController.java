@@ -2,7 +2,6 @@ package com.koyta.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.util.CollectionUtils;
@@ -11,19 +10,24 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.koyta.dto.TodoDto;
 import com.koyta.endpoint.TodoEndpoint;
+import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.service.TodoService;
 import com.koyta.util.CommonUtil;
 
 @RestController
 public class TodoController implements TodoEndpoint {
 
-	@Autowired
 	private TodoService todoService;
 
-	@Override
-	public ResponseEntity<?> saveTodo(TodoDto todoDto) throws Exception {
+	public TodoController(TodoService todoService) {
+		super();
+		this.todoService = todoService;
+	}
 
-		Boolean saveTodo = todoService.saveTodo(todoDto);
+	@Override
+	public ResponseEntity<?> saveTodo(TodoDto todoDto) throws ResourceNotFoundException {
+
+		boolean saveTodo = todoService.saveTodo(todoDto);
 
 		if (saveTodo) {
 			return CommonUtil.createBuildResponseMessage("Todo Saved Succes", HttpStatus.CREATED);
@@ -34,14 +38,13 @@ public class TodoController implements TodoEndpoint {
 	}
 
 	@Override
-	public ResponseEntity<?> getTodoById(Integer todoId) throws Exception {
+	public ResponseEntity<?> getTodoById(Integer todoId) throws ResourceNotFoundException {
 
 		TodoDto todo = todoService.getTodoById(todoId);
 
 		if (ObjectUtils.isEmpty(todo)) {
 
 			return CommonUtil.createErrorResponseMessage("Internal Server Error", HttpStatus.NOT_FOUND);
-			// return new ResponseEntity<>("Internal Server Error", HttpStatus.NOT_FOUND);
 		}
 
 		return CommonUtil.createBuildResponse(todo, HttpStatus.OK);
@@ -58,7 +61,6 @@ public class TodoController implements TodoEndpoint {
 		} else {
 
 			return CommonUtil.createBuildResponse(todoByUser, HttpStatus.OK);
-			// return new ResponseEntity<>(allCategory, HttpStatus.OK);
 		}
 
 	}

@@ -2,7 +2,6 @@ package com.koyta.config.security;
 
 import java.io.IOException;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -11,7 +10,6 @@ import org.springframework.security.web.authentication.WebAuthenticationDetailsS
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koyta.handler.GenericResponse;
 import com.koyta.service.JwtService;
@@ -24,11 +22,15 @@ import jakarta.servlet.http.HttpServletResponse;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-	@Autowired
 	private JwtService jwtService;
 
-	@Autowired
 	private UserDetailsServiceImpl userDetailsService;
+
+	public JwtFilter(JwtService jwtService, UserDetailsServiceImpl userDetailsService) {
+		super();
+		this.jwtService = jwtService;
+		this.userDetailsService = userDetailsService;
+	}
 
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -50,7 +52,7 @@ public class JwtFilter extends OncePerRequestFilter {
 			if (username != null && SecurityContextHolder.getContext().getAuthentication() == null) {
 
 				UserDetails userDetails = userDetailsService.loadUserByUsername(username);
-				Boolean validateToken = jwtService.validateToken(token, userDetails);
+				boolean validateToken = jwtService.validateToken(token, userDetails);
 
 				if (validateToken) {
 

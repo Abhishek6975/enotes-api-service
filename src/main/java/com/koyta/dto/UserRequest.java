@@ -2,8 +2,6 @@ package com.koyta.dto;
 
 import java.util.List;
 
-import com.koyta.entity.Role;
-
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

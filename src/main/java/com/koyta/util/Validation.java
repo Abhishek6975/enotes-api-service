@@ -1,12 +1,9 @@
 package com.koyta.util;
 
-import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.hibernate.bytecode.internal.bytebuddy.PrivateAccessorException;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
@@ -16,10 +13,9 @@ import com.koyta.dto.CategoryDto;
 import com.koyta.dto.TodoDto;
 import com.koyta.dto.TodoDto.StatusDto;
 import com.koyta.dto.UserRequest;
-import com.koyta.entity.Role;
-import com.koyta.entity.User;
 import com.koyta.enums.TodoStatus;
 import com.koyta.exception.ExistDataException;
+import com.koyta.exception.InvalidInputException;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.exception.ValidationException;
 import com.koyta.repository.RoleRepository;
@@ -28,71 +24,73 @@ import com.koyta.repository.UserRepository;
 @Component
 public class Validation {
 	
-	@Autowired
 	private RoleRepository roleRepository;
-	
-	@Autowired
+
 	private UserRepository userRepository;
+
+	public Validation(RoleRepository roleRepository, UserRepository userRepository) {
+		super();
+		this.roleRepository = roleRepository;
+		this.userRepository = userRepository;
+	}
 
 	public void categoryValidation(CategoryDto categoryDto) {
 
-		Map<String, Object> error = new LinkedHashMap<>();
-
 		if (ObjectUtils.isEmpty(categoryDto)) {
-			throw new IllegalArgumentException("Category Object/JSON Shouldn't be null or empty");
-		} else {
-
-			// validation name field
-			if (ObjectUtils.isEmpty(categoryDto.getName())) {
-				error.put("name", "Category field is Empty or Null");
-			} else {
-
-				if (categoryDto.getName().length() < 3) {
-					error.put("name", "name length min 3");
-				}
-				if (categoryDto.getName().length() > 100) {
-					error.put("name", "name length max 100");
-				}
-			}
-
-			// Description Validation field
-			if (ObjectUtils.isEmpty(categoryDto.getDescription())) {
-				error.put("description", "Description field is Empty or Null");
-			} else {
-
-				if (categoryDto.getDescription().length() < 10) {
-					error.put("description", "Description length min 10");
-				}
-				if (categoryDto.getName().length() > 100) {
-					error.put("description", "Description length max 100");
-				}
-			}
-
-			// validation isActive Field
-			if (ObjectUtils.isEmpty(categoryDto.getIsActive())) {
-				error.put("isActive", "isActive field is Empty or Null");
-			} else {
-
-				if (categoryDto.getIsActive() != Boolean.TRUE.booleanValue()
-						&& categoryDto.getIsActive() != Boolean.FALSE.booleanValue()) {
-					error.put("isActive", "invalid value isActive field");
-				}
-			}
+			throw new IllegalArgumentException("Category Object/JSON shouldn't be null or empty");
 		}
 
-		if (!error.isEmpty()) {
-			throw new ValidationException(error);
-		}
+		Map<String, Object> errors = new LinkedHashMap<>();
 
+		validateName(categoryDto.getName(), errors);
+		validateDescription(categoryDto.getDescription(), errors);
+		validateIsActive(categoryDto.getIsActive(), errors);
+
+		if (!errors.isEmpty()) {
+			throw new ValidationException(errors);
+		}
 	}
 
-	public void todoValidation(TodoDto todoDto) throws Exception {
+	private void validateName(String name, Map<String, Object> errors) {
+
+		if (ObjectUtils.isEmpty(name)) {
+			errors.put("name", "Category field is Empty or Null");
+			return;
+		}
+
+		if (name.length() < 3) {
+			errors.put("name", "Name length min 3");
+		} else if (name.length() > 100) {
+			errors.put("name", "Name length max 100");
+		}
+	}
+
+	private void validateDescription(String description, Map<String, Object> errors) {
+
+		if (ObjectUtils.isEmpty(description)) {
+			errors.put("description", "Description field is Empty or Null");
+			return;
+		}
+
+		if (description.length() < 10) {
+			errors.put("description", "Description length min 10");
+		} else if (description.length() > 100) {
+			errors.put("description", "Description length max 100");
+		}
+	}
+
+	private void validateIsActive(Boolean isActive, Map<String, Object> errors) {
+
+		if (isActive == null) {
+			errors.put("isActive", "isActive field is Empty or Null");
+		}
+	}
+
+	public void todoValidation(TodoDto todoDto) throws ResourceNotFoundException {
 
 		StatusDto reqStatus = todoDto.getStatus();
 
-		Boolean statusFound = false;
-
-		TodoStatus[] status = TodoStatus.values();
+		boolean statusFound = false;
 
 		for (TodoStatus st : TodoStatus.values()) {
 
@@ -108,20 +106,20 @@ public class Validation {
 		}
 	}
 
-	public void userValidation(UserRequest userDto) throws Exception {
+	public void userValidation(UserRequest userDto) throws InvalidInputException, ExistDataException {
 
 		if (!StringUtils.hasText(userDto.getFirstName())) {
-			throw new ResourceNotFoundException("first name is Invalid");
+			throw new InvalidInputException("First name is invalid");
 		}
 
 		if (!StringUtils.hasText(userDto.getLastName())) {
-			throw new ResourceNotFoundException("last name is Invalid");
+			throw new InvalidInputException("Last name is invalid");
 		}
 
 		if (!StringUtils.hasText(userDto.getEmail()) || !userDto.getEmail().matches(AppConstants.EMAIL_REGEX)) {
-			throw new ResourceNotFoundException("email is Invalid");
+			throw new ExistDataException("Email already exists");
 		} else {
-			Boolean existsEmail = userRepository.existsByEmail(userDto.getEmail());
+			boolean existsEmail = userRepository.existsByEmail(userDto.getEmail());
 
 			if (existsEmail) {
 
@@ -130,12 +128,12 @@ public class Validation {
 		}
 		
 		if (!StringUtils.hasText(userDto.getMobileNo()) || !userDto.getMobileNo().matches(AppConstants.MOBILENO_REGEX)) {
-			throw new ResourceNotFoundException("Mobile No.is Invalid");
+			throw new InvalidInputException("Mobile number is invalid");
 		}
 		
 		if (CollectionUtils.isEmpty(userDto.getRoles())) {
 
-			throw new ResourceNotFoundException("role is Invalid");
+			throw new InvalidInputException("Role is missing");
 		} else {
 
 			List<Integer> rolesIds = roleRepository.findAll().stream().map(role -> role.getId()).toList();
@@ -144,7 +142,7 @@ public class Validation {
 					filter(roleId -> !rolesIds.contains(roleId)).toList();
 			
 			if (!CollectionUtils.isEmpty(invalidReqRoleIds)) {
-				throw new ResourceNotFoundException("role is Invalid " + invalidReqRoleIds);
+				throw new InvalidInputException("Invalid role IDs: " + invalidReqRoleIds);
 			}
 		}
 		

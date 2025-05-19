@@ -19,6 +19,14 @@ public final class AppConstants {
 	public static final String DEFAULT_PAGE_NO ="0";
 	
 	public static final String DEFAULT_PAGE_SIZE ="10";
+	
+    public static final String KOYTA_INDUSTRIES_URL = "http://koytaindustries.com";
+    
+    public static final String DELETE_SUCCESS = "delete Success";
+    
+	public static final String STATUS_SUCCESS = "success";
+	
+	public static final String STATUS_FAILED = "failed";
 
 	private AppConstants() {
 		throw new UnsupportedOperationException("This is a utility class and cannot be instantiated");

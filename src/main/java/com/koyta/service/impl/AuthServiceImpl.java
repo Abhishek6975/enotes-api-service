@@ -1,4 +1,4 @@
-package com.koyta.service.Impl;
+package com.koyta.service.impl;
 
 import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
@@ -6,8 +6,9 @@ import java.util.List;
 import java.util.UUID;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,10 +24,12 @@ import com.koyta.dto.UserResponse;
 import com.koyta.entity.AccountStatus;
 import com.koyta.entity.Role;
 import com.koyta.entity.User;
+import com.koyta.exception.AuthenticationFailedException;
+import com.koyta.exception.UserRegistrationException;
 import com.koyta.repository.RoleRepository;
 import com.koyta.repository.UserRepository;
-import com.koyta.service.JwtService;
 import com.koyta.service.AuthService;
+import com.koyta.service.JwtService;
 import com.koyta.util.AppConstants;
 import com.koyta.util.CommonUtil;
 import com.koyta.util.Validation;
@@ -38,32 +41,38 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class AuthServiceImpl implements AuthService {
 
-	@Autowired
 	private UserRepository userRepository;
 
-	@Autowired
 	private RoleRepository roleRepository;
 
-	@Autowired
 	private Validation validation;
 
-	@Autowired
 	private ModelMapper modelMapper;
 
-	@Autowired
 	private EmailService emailService;
 
-	@Autowired
 	private AuthenticationManager authenticationManager;
-	
-	@Autowired
+
 	private PasswordEncoder passwordEncoder;
-	
-	@Autowired
+
 	private JwtService jwtService;
 
+	public AuthServiceImpl(UserRepository userRepository, RoleRepository roleRepository, Validation validation,
+			ModelMapper modelMapper, EmailService emailService, AuthenticationManager authenticationManager,
+			PasswordEncoder passwordEncoder, JwtService jwtService) {
+		super();
+		this.userRepository = userRepository;
+		this.roleRepository = roleRepository;
+		this.validation = validation;
+		this.modelMapper = modelMapper;
+		this.emailService = emailService;
+		this.authenticationManager = authenticationManager;
+		this.passwordEncoder = passwordEncoder;
+		this.jwtService = jwtService;
+	}
+
 	@Override
-	public Boolean register(UserRequest userDto, HttpServletRequest request) throws Exception {
+	public Boolean register(UserRequest userDto, HttpServletRequest request) throws UserRegistrationException {
 		
 		log.info("AuthServiceImpl : register() : Start");
 		String url = CommonUtil.getUrl(request);
@@ -85,16 +94,22 @@ public class AuthServiceImpl implements AuthService {
 		User save = userRepository.save(user);
 
 		if (ObjectUtils.isEmpty(save)) {
-			log.info("Error : {}","user not save");
-			return false;
+			log.error("User registration failed: user not saved");
+	        throw new UserRegistrationException("User could not be saved. Please try again later.");
 		}
 		
 		// send Email
-		emailSendForRegister(save, url);
-		log.info("message : {}","email send success");
+		try {
+			emailSendForRegister(save, url);
+			log.info("Email sent successfully to user: {}", save.getEmail());
+		} catch (Exception e) {
+			log.error("Email sending failed for user {}: {}", save.getEmail(), e.getMessage());
+			throw new UserRegistrationException("Registration succeeded, but verification email failed to send.");
+		}
+		
+		log.info("User registered successfully: {}", save.getEmail());
 		log.info("AuthServiceImpl : register() : End");
 		return true;
-
 
 	}
 
@@ -133,26 +148,34 @@ public class AuthServiceImpl implements AuthService {
 	}
 
 	@Override
-	public LoginResponse login(LoginRequest loginRequest) {
+	public LoginResponse login(LoginRequest loginRequest) throws AuthenticationFailedException {
 
-		Authentication authenticate = authenticationManager.authenticate(
-				new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
-		
-		
-		if(authenticate.isAuthenticated()) {
-			
+		try {
+
+			Authentication authenticate = authenticationManager.authenticate(
+					new UsernamePasswordAuthenticationToken(loginRequest.getEmail(), loginRequest.getPassword()));
+
+			if (!authenticate.isAuthenticated()) {
+				throw new AuthenticationFailedException("Invalid email or password");
+			}
+
 			CustomUserDetails customUserDetails = (CustomUserDetails) authenticate.getPrincipal();
 			
 			String token = jwtService.generateToken(customUserDetails.getUser());
-			LoginResponse loginResponse = LoginResponse.builder()
+			
+			return LoginResponse.builder()
 					.user(modelMapper.map(customUserDetails.getUser(), UserResponse.class))
 					.token(token)
 					.build();
 			
-			return loginResponse;
+		} catch (BadCredentialsException ex) {
+			throw new AuthenticationFailedException("Invalid email or password");
+		} catch (DisabledException ex) {
+			throw new AuthenticationFailedException("Account is disabled. Please verify your email.");
+		} catch (Exception ex) {
+			throw new AuthenticationFailedException("Login failed due to an unexpected error.");
 		}
 
-		return null;
 	}
 
 }

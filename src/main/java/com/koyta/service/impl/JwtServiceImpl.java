@@ -1,4 +1,4 @@
-package com.koyta.service.Impl;
+package com.koyta.service.impl;
 
 import java.security.Key;
 import java.util.Base64;
@@ -35,18 +35,15 @@ public class JwtServiceImpl implements JwtService {
 		try {
 
 			KeyGenerator keyGenerator = KeyGenerator.getInstance("HmacSHA256");
-			log.info("JwtServiceImpl : keyGenerator : " + keyGenerator);
-			
+		
 			SecretKey key = keyGenerator.generateKey();
-			
-			log.info("JwtServiceImpl : Key :" + key);
-			
+				
 			secretKey = Base64.getEncoder().encodeToString(key.getEncoded());
 			
-			log.info("JwtServiceImpl : SecretKey :" + secretKey);
+			log.info("JwtServiceImpl initialized successfully.");
 
 		} catch (Exception e) {
-			e.printStackTrace();
+			 log.error("JwtServiceImpl initialization failed.", e);
 		}
 
 	}
@@ -59,16 +56,14 @@ public class JwtServiceImpl implements JwtService {
 		claims.put("role", user.getRoles());
 		claims.put("status", user.getStatus().getIsActive());
 
-		String token = Jwts.builder()
+		return Jwts.builder()
 				.claims().add(claims)
 				.subject(user.getEmail())
 				.issuedAt(new Date(System.currentTimeMillis()))
 				.expiration(new Date(System.currentTimeMillis() + 60 * 60 * 60 * 10))
 				.and()
 				.signWith(getKey())
-				.compact();
-		
-		return token;
+				.compact();	
 	}
 
 	private Key getKey() {
@@ -85,20 +80,18 @@ public class JwtServiceImpl implements JwtService {
 	
 	public String role(String token) {
 		Claims claims = extractAllClaims(token);
-		String role = (String) claims.get("role");
-		return role;
+		return (String) claims.get("role");
 	}
 
 	private Claims extractAllClaims(String token) {
 
 		try {
-			Claims claims = Jwts.parser()
+		     return	Jwts.parser()
 					.verifyWith(decrytKey(secretKey))
 					.build()
 					.parseSignedClaims(token)
 					.getPayload();
-
-			return claims;
+	
 		} catch (ExpiredJwtException e) {
 
 			throw new JwtTokenExpiredException("Token is Expired");
@@ -112,7 +105,7 @@ public class JwtServiceImpl implements JwtService {
 
 	}
 
-	private SecretKey decrytKey(String secretKey2) {
+	private SecretKey decrytKey(String secretKey) {
 
 		byte[] keyByets = Decoders.BASE64.decode(secretKey);
 		return Keys.hmacShaKeyFor(keyByets);
@@ -122,14 +115,8 @@ public class JwtServiceImpl implements JwtService {
 	public Boolean validateToken(String token, UserDetails userDetails) {
 
 		String userName = extractUserName(token);
-		Boolean isExpired = isTokenExpired(token);
-		
-		if(userName.equalsIgnoreCase(userDetails.getUsername()) && !isExpired) {
-			
-			return true;
-		}
 
-		return false;
+		return userName.equalsIgnoreCase(userDetails.getUsername()) && !isTokenExpired(token);
 	}
 
 	private Boolean isTokenExpired(String token) {

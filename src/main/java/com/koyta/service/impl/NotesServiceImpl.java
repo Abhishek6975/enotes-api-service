@@ -1,35 +1,29 @@
-package com.koyta.service.Impl;
+package com.koyta.service.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Stream;
 
-import org.apache.catalina.mapper.Mapper;
 import org.apache.commons.io.FilenameUtils;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.util.ObjectUtils;
 import org.springframework.util.StreamUtils;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.data.domain.Pageable;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.koyta.dto.FavouriteNotesDto;
 import com.koyta.dto.NotesDto;
@@ -39,6 +33,7 @@ import com.koyta.dto.NotesResponse;
 import com.koyta.entity.FavouriteNotes;
 import com.koyta.entity.FilesDetails;
 import com.koyta.entity.Notes;
+import com.koyta.exception.NoteSaveException;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.CategoryRepository;
 import com.koyta.repository.FavouriteNotesRepository;
@@ -50,74 +45,87 @@ import com.koyta.util.CommonUtil;
 @Service
 public class NotesServiceImpl implements NotesService {
 
-	@Autowired
 	private NotesRepository notesRepository;
 
-	@Autowired
 	private ModelMapper modelMapper;
 
-	@Autowired
 	private CategoryRepository categoryRepository;
-	
-	@Autowired
+
 	private FileRepository fileRepository;
-	
-	@Autowired
+
 	private FavouriteNotesRepository favouriteNotesRepository;
-	
+
 	@Value("${file.upload.path}")
 	private String uploadPath;
 
+	public NotesServiceImpl(NotesRepository notesRepository, ModelMapper modelMapper,
+			CategoryRepository categoryRepository, FileRepository fileRepository,
+			FavouriteNotesRepository favouriteNotesRepository) {
+		super();
+		this.notesRepository = notesRepository;
+		this.modelMapper = modelMapper;
+		this.categoryRepository = categoryRepository;
+		this.fileRepository = fileRepository;
+		this.favouriteNotesRepository = favouriteNotesRepository;
+	}
+
 	@Override
-	public Boolean saveNotes(String notes,  MultipartFile file) throws Exception {
+	public Boolean saveNotes(String notes,  MultipartFile file) throws ResourceNotFoundException ,NoteSaveException {
 		
 		ObjectMapper objectMapper = new ObjectMapper();
 
-		NotesDto notesDto = objectMapper.readValue(notes, NotesDto.class);
-		notesDto.setIsDeleted(false);
-		notesDto.setDeletedOn(null);
-		
-		//Update if id is given in Request
-		if(!ObjectUtils.isEmpty(notesDto.getId())) {
-			
-			updateNotes(notesDto, file);		
-		}
+		try {
 
-		// Validation Notes Checking
+			NotesDto notesDto = objectMapper.readValue(notes, NotesDto.class);
+			notesDto.setIsDeleted(false);
+			notesDto.setDeletedOn(null);
 
-		checkCategoryExist(notesDto.getCategory());
+			// Update if id is given in Request
+			if (!ObjectUtils.isEmpty(notesDto.getId())) {
 
-		Notes notesMap = modelMapper.map(notesDto, Notes.class);
-
-		FilesDetails filesDetails = saveFileDetails(file);
-
-		if (!ObjectUtils.isEmpty(filesDetails)) {
-
-			notesMap.setFilesDetails(filesDetails);
-
-		} else {
-			
-			if(ObjectUtils.isEmpty(notesDto.getId())) {
-				
-				notesMap.setFilesDetails(null);		
+				updateNotes(notesDto, file);
 			}
+
+			// Validation Notes Checking
+
+			checkCategoryExist(notesDto.getCategory());
+
+			Notes notesMap = modelMapper.map(notesDto, Notes.class);
+
+			FilesDetails filesDetails = saveFileDetails(file);
+
+			if (!ObjectUtils.isEmpty(filesDetails)) {
+
+				notesMap.setFilesDetails(filesDetails);
+
+			} else {
+
+				if (ObjectUtils.isEmpty(notesDto.getId())) {
+
+					notesMap.setFilesDetails(null);
+				}
+			}
+
+			Notes saveNotes = notesRepository.save(notesMap);
+
+			if (!ObjectUtils.isEmpty(saveNotes)) {
+
+				return true;
+			}
+
+		} catch (JsonProcessingException e) {
+			throw new NoteSaveException("Invalid note format", e);
+		} catch (IllegalAccessException | IOException e) {
+			throw new NoteSaveException("File handling failed", e);
 		}
-
-		Notes saveNotes = notesRepository.save(notesMap);
-
-		if (!ObjectUtils.isEmpty(saveNotes)) {
-
-			return true;
-		}
-
 		return false;
 
 	}
 
-	private void updateNotes(NotesDto notesDto, MultipartFile file) throws Exception {
+	private void updateNotes(NotesDto notesDto, MultipartFile file) throws ResourceNotFoundException {
 		
 		Notes exitsNotes = notesRepository.findById(notesDto.getId())
-				.orElseThrow(() -> new ResourceNotFoundException("Invalid Notes Id"));
+				.orElseThrow(() -> new ResourceNotFoundException("Note not found for update. ID: " + notesDto.getId()));
 		
 		
 		//user not choose any file at notes update time
@@ -164,19 +172,16 @@ public class NotesServiceImpl implements NotesService {
 			long upload = Files.copy(file.getInputStream(), Paths.get(storePath));
 
 			if (upload != 0) {
-				
+
 				FilesDetails fileDetails = new FilesDetails();
-				
+
 				fileDetails.setOriginalFileName(originalFileName);
 				fileDetails.setDisplayFileName(getDisplayName(originalFileName)); // getDisplayName Method()
 				fileDetails.setUploadFileName(uploadFileName);
 				fileDetails.setFileSize(file.getSize());
 				fileDetails.setPath(storePath);
 
-				FilesDetails saveFileDtls = fileRepository.save(fileDetails);
-
-				return saveFileDtls;
-
+				return fileRepository.save(fileDetails);
 			}
 
 		}
@@ -203,7 +208,7 @@ public class NotesServiceImpl implements NotesService {
 		
 	}
 
-	private void checkCategoryExist(CategoryDto category) throws Exception {
+	private void checkCategoryExist(CategoryDto category) throws ResourceNotFoundException {
 
 		categoryRepository.findById(category.getId())
 				.orElseThrow(() -> new ResourceNotFoundException("Category id invalid"));
@@ -227,11 +232,9 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public FilesDetails getFileDetails(Integer id) throws Exception {
+	public FilesDetails getFileDetails(Integer id) throws ResourceNotFoundException {
 
-		FilesDetails filesDetails = fileRepository.findById(id)
-				.orElseThrow(() -> new ResourceNotFoundException("File Not Found"));
-		return filesDetails;
+		return fileRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("File Not Found"));
 	}
 
 	@Override
@@ -245,7 +248,7 @@ public class NotesServiceImpl implements NotesService {
 
 		List<NotesDto> notesDtos = pageNotes.get().map(n -> modelMapper.map(n, NotesDto.class)).toList();
 
-		NotesResponse notes = NotesResponse.builder()
+		return NotesResponse.builder()
 				.notes(notesDtos)
 				.pageNo(pageNotes.getNumber())
 				.pageSize(pageNotes.getSize())
@@ -254,13 +257,11 @@ public class NotesServiceImpl implements NotesService {
 				.isFirst(pageNotes.isFirst())
 				.isLast(pageNotes.isLast())
 				.build();
-		
-		
-		return notes;
+
 	}
 
 	@Override
-	public void softDeleteNotes(Integer id) throws Exception {
+	public void softDeleteNotes(Integer id) throws ResourceNotFoundException {
 
 		Notes notes = notesRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Notes Id invalid! Not Found"));
@@ -271,7 +272,7 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public void restoreNotes(Integer id) throws Exception {
+	public void restoreNotes(Integer id) throws ResourceNotFoundException {
 		Notes notes = notesRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Notes Id invalid! Not Found"));
 		
@@ -283,20 +284,21 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public List<NotesDto> getUserRecycleBinNotes() {
-		
+	public List<NotesDto> getUserRecycleBinNotes() throws ResourceNotFoundException {
+
 		Integer userId = CommonUtil.getLoggedInUser().getId();
-		
+
 		List<Notes> recycleNotes = notesRepository.findByCreatedByAndIsDeletedTrue(userId);
 
-		List<NotesDto> notesDto = recycleNotes.stream().map(notes -> modelMapper.map(notes, NotesDto.class))
-				.toList();
+		if (recycleNotes.isEmpty()) {
+			throw new ResourceNotFoundException("No notes found in recycle bin for user with ID: " + userId);
+		}
 
-		return notesDto;
+		return recycleNotes.stream().map(notes -> modelMapper.map(notes, NotesDto.class)).toList();
 	}
 
 	@Override
-	public void hardDeleteNotes(Integer id) throws Exception {
+	public void hardDeleteNotes(Integer id) throws ResourceNotFoundException {
 
 		Notes notes = notesRepository.findById(id).orElseThrow(() -> new ResourceNotFoundException("Notes Not Found"));
 
@@ -309,21 +311,23 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public void emptyRecycleBin() {
-		
+	public void emptyRecycleBin() throws ResourceNotFoundException {
+
 		Integer userId = CommonUtil.getLoggedInUser().getId();
-		
+
 		List<Notes> recycleNotes = notesRepository.findByCreatedByAndIsDeletedTrue(userId);
-		
-		if(!CollectionUtils.isEmpty(recycleNotes)) {
-			
-			notesRepository.deleteAll(recycleNotes);
+
+		if (CollectionUtils.isEmpty(recycleNotes)) {
+
+			throw new ResourceNotFoundException("Recycle bin is already empty for user with ID: " + userId);
 		}
-		
+
+		notesRepository.deleteAll(recycleNotes);
+
 	}
 
 	@Override
-	public void favouriteNotes(Integer noteId) throws Exception {
+	public void favouriteNotes(Integer noteId) throws ResourceNotFoundException {
 
 		Integer userId = 1;
 
@@ -340,10 +344,10 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public void unFavouriteNotes(Integer FavouriteNoteId) throws Exception {
+	public void unFavouriteNotes(Integer favouriteNoteId) throws ResourceNotFoundException {
 		
 
-		 FavouriteNotes favNote = favouriteNotesRepository.findById(FavouriteNoteId)
+		 FavouriteNotes favNote = favouriteNotesRepository.findById(favouriteNoteId)
 				.orElseThrow(() -> new ResourceNotFoundException("Favourite Note Not Found"));
 		
 		favouriteNotesRepository.delete(favNote);
@@ -362,7 +366,7 @@ public class NotesServiceImpl implements NotesService {
 	}
 
 	@Override
-	public Boolean copyNotes(Integer id) throws Exception {
+	public Boolean copyNotes(Integer id) throws ResourceNotFoundException {
 
 		Notes notes = notesRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Notes id is Invalid"));
@@ -377,25 +381,22 @@ public class NotesServiceImpl implements NotesService {
 
 		Notes save = notesRepository.save(cpyNotes);
 
-		if (!ObjectUtils.isEmpty(save)) {
-			return true;
-		}
-		return false;
+		return !ObjectUtils.isEmpty(save);
 
 	}
 
 	@Override
 	public NotesResponse getNotesByUserSearch(Integer pageNo, Integer pageSize, String keyword) {
-		
-        Integer userId = CommonUtil.getLoggedInUser().getId();
-		
+
+		Integer userId = CommonUtil.getLoggedInUser().getId();
+
 		Pageable pageable = PageRequest.of(pageNo, pageSize);
 
-		Page<Notes> pageNotes = notesRepository.searchNotes(keyword,userId, pageable);
+		Page<Notes> pageNotes = notesRepository.searchNotes(keyword, userId, pageable);
 
 		List<NotesDto> notesDtos = pageNotes.get().map(n -> modelMapper.map(n, NotesDto.class)).toList();
 
-		NotesResponse notes = NotesResponse.builder()
+		return NotesResponse.builder()
 				.notes(notesDtos)
 				.pageNo(pageNotes.getNumber())
 				.pageSize(pageNotes.getSize())
@@ -404,8 +405,7 @@ public class NotesServiceImpl implements NotesService {
 				.isFirst(pageNotes.isFirst())
 				.isLast(pageNotes.isLast())
 				.build();
-		
-		return notes;
+
 	}
 
 }

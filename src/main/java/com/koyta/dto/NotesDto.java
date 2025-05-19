@@ -3,7 +3,6 @@ package com.koyta.dto;
 import java.time.LocalDateTime;
 import java.util.Date;
 
-import jakarta.persistence.Entity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -2,12 +2,10 @@ package com.koyta.util;
 
 import org.apache.commons.io.FilenameUtils;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 
 import com.koyta.config.security.CustomUserDetails;
-import com.koyta.dto.UserResponse;
 import com.koyta.entity.User;
 import com.koyta.handler.GenericResponse;
 
@@ -15,11 +13,13 @@ import jakarta.servlet.http.HttpServletRequest;
 
 public class CommonUtil {
 
+	private CommonUtil() {}
+
 	public static ResponseEntity<?> createBuildResponse(Object data, HttpStatus status) {
 
 		GenericResponse response = GenericResponse.builder()
 				.responseStatus(status)
-				.status("succes")
+				.status(AppConstants.STATUS_SUCCESS)
 				.message("message")
 				.data(data)
 				.build();
@@ -32,7 +32,7 @@ public class CommonUtil {
 
 		GenericResponse response = GenericResponse.builder()
 				.responseStatus(status)
-				.status("succes")
+				.status(AppConstants.STATUS_SUCCESS)
 				.message(message)
 				.build();
 
@@ -44,8 +44,8 @@ public class CommonUtil {
 
 		GenericResponse response = GenericResponse.builder()
 				.responseStatus(status)
-				.status("failed")
-				.message("failed")
+				.status(AppConstants.STATUS_FAILED)
+				.message(AppConstants.STATUS_FAILED)
 				.data(data)
 				.build();
 
@@ -57,7 +57,7 @@ public class CommonUtil {
 
 		GenericResponse response = GenericResponse.builder()
 				.responseStatus(status)
-				.status("failed")
+				.status(AppConstants.STATUS_FAILED)
 				.message(message)
 				.build();
 
@@ -92,7 +92,7 @@ public class CommonUtil {
 
 		String apiUrl = request.getRequestURL().toString(); // http://localhost:8080/api/v1/auth/
 
-		String string = request.getServletPath().toString(); // /api/v1/auth/
+//		String string = request.getServletPath().toString(); // /api/v1/auth/
 
 		apiUrl = apiUrl.replace(request.getServletPath(), ""); // http://localhost:8080
 
@@ -108,7 +108,7 @@ public class CommonUtil {
 
 		} catch (Exception e) {
 
-			throw e;
+			throw new IllegalStateException("Failed to get logged in user from security context", e);
 		}
 
 	}

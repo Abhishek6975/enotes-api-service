@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.koyta.dto.CategoryDto;
+import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.util.AppConstants;
 
 import io.swagger.v3.oas.annotations.Operation;
@@ -40,7 +41,7 @@ public interface CategoryEndpoint {
 	@Operation(summary = "Get Category By Id",tags = {"Category"},description = "ROLE_ADMIN Get Category Details By Id")
 	@GetMapping("/{id}")
 	@PreAuthorize(ROLE_ADMIN)
-	public ResponseEntity<?> getCategoryDetailsById(@PathVariable("id") Integer id) throws Exception;
+	public ResponseEntity<?> getCategoryDetailsById(@PathVariable("id") Integer id) throws ResourceNotFoundException;
 
 	@Operation(summary = "Delete Category By Id Endpoint",tags = {"Authentication"},description = "ROLE_ADMIN Delete Category Details By Id")
 	@DeleteMapping("/{id}")

@@ -2,9 +2,6 @@ package com.koyta.dto;
 
 import java.util.List;
 
-import com.koyta.dto.TodoDto.StatusDto;
-
-import ch.qos.logback.core.status.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

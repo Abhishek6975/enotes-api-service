@@ -1,7 +1,6 @@
 package com.koyta.controller;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -21,11 +20,15 @@ import lombok.extern.slf4j.Slf4j;
 @RestController
 public class UserController implements UserEndpoint {
 
-	@Autowired
 	private ModelMapper modelMapper;
 
-	@Autowired
 	private UserService userService;
+
+	public UserController(ModelMapper modelMapper, UserService userService) {
+		super();
+		this.modelMapper = modelMapper;
+		this.userService = userService;
+	}
 
 	@GetMapping("/profile")
 	public ResponseEntity<?> getProfile() {
@@ -39,7 +42,7 @@ public class UserController implements UserEndpoint {
 	}
 
 	@PostMapping("/chng-pswd")
-	public ResponseEntity<?> changePassword(PasswordChngRequest passwordChngRequest) throws Exception {
+	public ResponseEntity<?> changePassword(PasswordChngRequest passwordChngRequest) throws IllegalAccessException {
 
 		userService.changePassword(passwordChngRequest);
 		return CommonUtil.createBuildResponseMessage("Password Changed Success", HttpStatus.OK);

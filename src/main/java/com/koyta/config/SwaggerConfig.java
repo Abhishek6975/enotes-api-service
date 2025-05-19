@@ -1,21 +1,21 @@
 package com.koyta.config;
 
-import java.util.List;
 import java.util.Arrays;
+import java.util.List;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
-import ch.qos.logback.core.subst.Token.Type;
-import io.swagger.v3.oas.annotations.security.SecurityScheme;
+import com.koyta.util.AppConstants;
+
 import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Contact;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.info.License;
-import io.swagger.v3.oas.models.servers.Server;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
 import io.swagger.v3.oas.models.security.SecurityScheme.In;
+import io.swagger.v3.oas.models.servers.Server;
 
 @Configuration
 public class SwaggerConfig {
@@ -29,9 +29,9 @@ public class SwaggerConfig {
 		info.setTitle("Enotes API");
 		info.setDescription("Enotes Api");
 		info.setVersion("1.0.0");
-		info.setTermsOfService("http://koytaindustries.com");
-		info.setContact(new Contact().name("Abhishek Narkhede").url("http://koytaindustries.com").email("abhisheknarkharkhede083@gmail.com"));
-		info.setLicense(new License().name("Enotes 1.0").url("http://koytaindustries.com"));
+		info.setTermsOfService(AppConstants.KOYTA_INDUSTRIES_URL);
+		info.setContact(new Contact().name("Abhishek Narkhede").url(AppConstants.KOYTA_INDUSTRIES_URL).email("abhisheknarkharkhede083@gmail.com"));
+		info.setLicense(new License().name("Enotes 1.0").url(AppConstants.KOYTA_INDUSTRIES_URL));
 
 		List<Server> serversList = Arrays.asList(new Server().description("Dev").url("http://localhost:8080"),
 				new Server().description("Test").url("http://localhost:8081"),

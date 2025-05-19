@@ -2,13 +2,13 @@ package com.koyta.controller;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.koyta.dto.PswdResetRequest;
 import com.koyta.endpoint.HomeEndpoint;
+import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.service.HomeService;
 import com.koyta.service.UserService;
 import com.koyta.util.CommonUtil;
@@ -20,18 +20,22 @@ public class HomeController implements HomeEndpoint {
 	
 	Logger log = LoggerFactory.getLogger(HomeController.class);
 
-	@Autowired
 	private HomeService homeService;
 
-	@Autowired
 	private UserService userService;
+
+	public HomeController(HomeService homeService, UserService userService) {
+		super();
+		this.homeService = homeService;
+		this.userService = userService;
+	}
 
 	@Override
 	public ResponseEntity<?> verifyUserAccount(Integer id, String vc)
-			throws Exception {
+			throws ResourceNotFoundException {
 
 		log.info("HomeController : verifyUserAccount : Execution Start");
-		Boolean verifyAccount = homeService.verifyAccount(id, vc);
+		boolean verifyAccount = homeService.verifyAccount(id, vc);
 
 		if (verifyAccount) {
 
@@ -45,7 +49,7 @@ public class HomeController implements HomeEndpoint {
 	
 	@Override
 	public ResponseEntity<?> sendEmailForPasswordRest(String email, HttpServletRequest request)
-			throws Exception {
+			throws ResourceNotFoundException {
 
 		userService.sendEmailPasswordReset(email, request);
 
@@ -54,7 +58,7 @@ public class HomeController implements HomeEndpoint {
 	
 	@Override
 	public ResponseEntity<?> verifyPasswordResetLink(Integer id, String vc) 
-			throws Exception {
+			throws ResourceNotFoundException {
 
 		userService.verifyPswdRestLink(id, vc);
 
@@ -64,7 +68,7 @@ public class HomeController implements HomeEndpoint {
 	
 	@Override
 	public ResponseEntity<?> restPassword(PswdResetRequest pswdResetRequest) 
-			throws Exception {
+			throws ResourceNotFoundException {
 
 		userService.resetPassword(pswdResetRequest);
 

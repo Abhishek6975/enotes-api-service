@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.koyta.dto.LoginRequest;
 import com.koyta.dto.UserRequest;
+import com.koyta.exception.AuthenticationFailedException;
+import com.koyta.exception.UserRegistrationException;
 
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
@@ -26,9 +28,9 @@ public interface AuthEndpoint {
 	@Operation(summary = "User Register Endpoint",tags = {"Home"})
 	@PostMapping("/register")
 	public ResponseEntity<?> registerUser(@RequestBody UserRequest userDto, HttpServletRequest request)
-			throws Exception;
+			throws UserRegistrationException;
 
 	@Operation(summary = "User Login Endpoint",tags = {"Home"})
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws Exception;
+	public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) throws AuthenticationFailedException ;
 }

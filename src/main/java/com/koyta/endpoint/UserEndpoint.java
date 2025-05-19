@@ -21,6 +21,6 @@ public interface UserEndpoint {
 
 	@Operation(summary = "Change User Account Password",description = "Change User Account Password")
 	@PostMapping("/chng-pswd")
-	public ResponseEntity<?> changePassword(@RequestBody PasswordChngRequest passwordChngRequest) throws Exception;
+	public ResponseEntity<?> changePassword(@RequestBody PasswordChngRequest passwordChngRequest) throws IllegalAccessException;
 	
 }

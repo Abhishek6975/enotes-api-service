@@ -1,9 +1,8 @@
-package com.koyta.service.Impl;
+package com.koyta.service.impl;
 
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -20,38 +19,35 @@ import com.koyta.util.Validation;
 @Service
 public class TodoServiceImpl implements TodoService {
 
-	@Autowired
 	private TodoRepository todoRepository;
 
-	@Autowired
 	private ModelMapper modelMapper;
-	
-	@Autowired
+
 	private Validation validation;
 
+	public TodoServiceImpl(TodoRepository todoRepository, ModelMapper modelMapper, Validation validation) {
+		super();
+		this.todoRepository = todoRepository;
+		this.modelMapper = modelMapper;
+		this.validation = validation;
+	}
+
 	@Override
-	public Boolean saveTodo(TodoDto todoDto) throws Exception {
-		
-		// validate todo status
-		
+	public Boolean saveTodo(TodoDto todoDto) throws ResourceNotFoundException {
+
 		validation.todoValidation(todoDto);
-		
 
 		Todo todo = modelMapper.map(todoDto, Todo.class);
-		
+
 		todo.setStatusId(todoDto.getStatus().getId());
 
 		Todo save = todoRepository.save(todo);
 
-		if (!ObjectUtils.isEmpty(save)) {
-			return true;
-		}
-
-		return false;
+		return !ObjectUtils.isEmpty(save);
 	}
 
 	@Override
-	public TodoDto getTodoById(Integer id) throws Exception {
+	public TodoDto getTodoById(Integer id) throws ResourceNotFoundException {
 
 		Todo todo = todoRepository.findById(id)
 				.orElseThrow(() -> new ResourceNotFoundException("Todo Not Found! id Invalid"));

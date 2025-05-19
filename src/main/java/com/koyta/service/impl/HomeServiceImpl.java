@@ -1,6 +1,5 @@
-package com.koyta.service.Impl;
+package com.koyta.service.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.koyta.entity.AccountStatus;
@@ -16,11 +15,15 @@ import lombok.extern.slf4j.Slf4j;
 @Component
 public class HomeServiceImpl implements HomeService {
 
-	@Autowired
 	private UserRepository userRepository;
 
+	public HomeServiceImpl(UserRepository userRepository) {
+		super();
+		this.userRepository = userRepository;
+	}
+
 	@Override
-	public Boolean verifyAccount(Integer userId, String verificationCode) throws Exception {
+	public Boolean verifyAccount(Integer userId, String verificationCode) throws ResourceNotFoundException {
 
 		log.info("HomeServiceImpl : verifyUserAccount() : Start");
 		User user = userRepository.findById(userId).orElseThrow(() -> new ResourceNotFoundException("invalid user"));
