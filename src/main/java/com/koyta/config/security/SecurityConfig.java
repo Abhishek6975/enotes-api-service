@@ -58,7 +58,7 @@ public class SecurityConfig {
 
 		httpSecurity.authorizeHttpRequests(authorize -> {
 			authorize.requestMatchers("/api/v1/home/**", "/api/v1/auth/**", "/swagger-ui/**", "/v3/api-docs/**",
-					"/enotes-doc", "/enotes-api-doc/**","/actuator/**").permitAll();
+					"/enotes-doc", "/enotes-api-doc/**", "/actuator/**", "/api/v1/cache/**").permitAll();
 			authorize.anyRequest().authenticated();
 		});
 
@@ -73,7 +73,7 @@ public class SecurityConfig {
 	@Bean
 	public PasswordEncoder passwordEncoder() {
 		return new BCryptPasswordEncoder();
-	  //return NoOpPasswordEncoder.getInstance()
+//	  return NoOpPasswordEncoder.getInstance();
 		
 	}
 

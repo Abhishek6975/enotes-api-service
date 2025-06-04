@@ -1,9 +1,13 @@
 package com.koyta.service.impl;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 import org.springframework.util.ObjectUtils;
 
@@ -13,6 +17,7 @@ import com.koyta.entity.Category;
 import com.koyta.exception.ExistDataException;
 import com.koyta.exception.ResourceNotFoundException;
 import com.koyta.repository.CategoryRepository;
+import com.koyta.service.CacheManagerService;
 import com.koyta.service.CategoryService;
 import com.koyta.util.Validation;
 
@@ -24,6 +29,9 @@ public class CategoryServiceImpl implements CategoryService {
 	private ModelMapper modelMapper;
 
 	private Validation validation;
+	
+	@Autowired
+	private CacheManagerService cacheService;
 
 	public CategoryServiceImpl(CategoryRepository categoryRepository, ModelMapper modelMapper, Validation validation) {
 		super();
@@ -82,6 +90,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Cacheable("allCategory")
 	public List<CategoryDto> getAllCategory() {
 
 		List<Category> categories = categoryRepository.findByIsDeletedFalse();
@@ -91,6 +100,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Cacheable("activeCategory")
 	public List<CategoryResponse> getActiveCategory() {
 
 		List<Category> categories = categoryRepository.findByIsActiveTrueAndIsDeletedFalse();
@@ -100,6 +110,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@Cacheable(value = "getCategoryById", key = "#id")
 	public CategoryDto getCategoryById(Integer id) throws ResourceNotFoundException {
 
 		Category category = categoryRepository.findByIdAndIsDeletedFalse(id)
@@ -115,6 +126,7 @@ public class CategoryServiceImpl implements CategoryService {
 	}
 
 	@Override
+	@CacheEvict(value = "getCategoryById", key = "#id")
 	public Boolean deleteCategoryById(Integer id) {
 
 		Optional<Category> findByCategory = categoryRepository.findById(id);
@@ -124,6 +136,10 @@ public class CategoryServiceImpl implements CategoryService {
 			Category category = findByCategory.get();
 			category.setIsDeleted(true);
 			categoryRepository.save(category);
+			
+			//remove from Cache
+			cacheService.removeCacheByNames(Arrays.asList("allCategory", "activeCategory"));
+			
 			return true;
 
 		}
